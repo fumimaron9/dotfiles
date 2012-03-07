@@ -1,0 +1,173 @@
+export DOTFILES_PATH=$HOME/dotfiles
+
+export IGNOREEOF=3
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+export GPG_TTY=$(tty)
+
+# for wsl
+if [ $(uname -r | grep -i "microsoft") ]; then
+  export PATH="$(echo "$PATH" | sed -r -e 's;:/mnt/[^:]+;;g')"
+fi
+
+export PATH=$HOME/.local/bin:$HOME/local/bin:$HOME/bin:/usr/local/bin:/usr/bin/:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+
+if [ "$(uname)" = "Darwin" ]; then
+  export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+  export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+elif [ $(uname -r | grep -i "microsoft") ]; then
+  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+  test $(command -v brew) && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+elif [ "$(uname)" = "Linux" ] && [ ! $(uname -r | grep -i "microsoft") ]; then
+  export PATH=$HOME/.linuxbrew/bin:$PATH
+  test $(command -v brew) && eval $($HOME/.linuxbrew/bin/brew shellenv)
+fi
+
+if type nvim > /dev/null 2>&1; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
+# diff-highlight
+if [ -d "$(brew --prefix)/share/git-core/contrib/diff-highlight" ]; then
+  export PATH=$(brew --prefix)/share/git-core/contrib/diff-highlight:$PATH
+elif [ -d "$HOME/local/share/doc/git-core/contrib/diff-highlight" ]; then
+  export PATH=$HOME/local/share/doc/git-core/contrib/diff-highlight:$PATH
+elif [ -d "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight" ]; then
+  export PATH=/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight:$PATH
+else
+  echo "diff-highlight is not supported"
+fi
+
+if command -v nodenv > /dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
+
+
+
+
+
+
+#
+##script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE:-$0}")"; pwd)"
+##echo $script_dir
+#export IGNOREEOF=3
+#
+#export PATH=$HOME/.local/bin:$HOME/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH
+#export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+#
+## android sdk
+#export PATH=$HOME/Library/Android/sdk/platform-tools:$HOME/Library/Android/sdk/tools:$PATH
+#
+#if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+#  export PATH="$(brew --prefix)/bin:$PATH"
+#  export PATH="$(brew --prefix)/sbin:$PATH"
+#  export MANPATH="$(brew --prefix)/share/man:$MANPATH"
+#  export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
+#fi
+#
+#
+##PYTHONUSERBASE=$HOME/local
+#USER_BASE_PATH="$(python -m site --user-base)/bin"
+#export PATH=$PATH:$USER_BASE_PATH
+#
+#if type pyenv > /dev/null 2>&1; then
+#  export PATH="$HOME/.pyenv/bin:$PATH"
+#  export PYENV_ROOT=$HOME/.pyenv
+#  eval "$(pyenv init -)"
+#fi
+#
+#if command -v direnv > /dev/null 2>&1; then
+#  eval "$(direnv hook $SHELL)"
+#fi
+#
+#
+#if ! type brew > /dev/null 2>&1; then
+#  export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
+#
+#  # for ssl
+#  SSL_CERT_FILE="/etc/pki/tls/certs/ca-bundle.crt"
+#  if [ -f "${SSL_CERT_FILE}" ]; then
+#    export SSL_CERT_FILE
+#  fi
+#fi
+#
+## secret
+#if [ -f $HOME/.secret ]; then
+#  source $HOME/.secret
+#fi
+#
+#if type nvim > /dev/null 2>&1; then
+#  export EDITOR=nvim
+#else
+#  export EDITOR=vim
+#fi
+#
+#export LANG=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+#export KCODE=u
+#export AUTOFEATURE=true
+#export MYSQL_PS1="\\U[\\d]> "
+#
+## color
+#if [ -d "$(brew --prefix coreutils)" ]; then
+#  eval `dircolors -b $HOME/.dir_colors`
+#fi
+#
+## git ssl through
+#export GIT_SSL_NO_VERIFY=1
+#
+## umask
+#umask 002
+#
+## ctrl+s で出力がロックされてしまうのを防ぐ
+#tty -s
+#IS_TTY=$?
+#if [ $IS_TTY -eq 0 -a -d "$(brew --prefix coreutils)" ]; then
+#  stty stop undef
+#fi
+#
+## guardのnitificationを停止
+#export GUARD_NOTIFY=false
+#
+##agent="$HOME/.ssh/agent"
+##if [ -S "$SSH_AUTH_SOCK" ]; then
+##  case $SSH_AUTH_SOCK in
+##  /tmp/*/agent.[0-9]*)
+##    ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
+##  esac
+##elif [ -S $agent ]; then
+##  export SSH_AUTH_SOCK=$agent
+##else
+##  echo "no ssh-agent"
+##fi
+#
+#
+#export XDG_CONFIG_HOME=$HOME/.config
+#export XDG_CACHE_HOME=$HOME/.cache
+#export XDG_DATA_HOME=$HOME/.local/share
+#
+#export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWSTASHSTATE=1
+#export GIT_PS1_SHOWUNTRACKEDFILES=1
+#export GIT_PS1_SHOWUPSTREAM="auto"
+#export GIT_PS1_SHOWCOLORHINTS=1
+#export GIT_PS1_DESCRIBE_STYLE="branch"
+#
+#if [ -f "$(brew --prefix)/etc/bash_completion.d/git-prompt.sh" ]; then
+#  source "$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
+#elif [ -f "$HOME/local/share/doc/git-core/contrib/completion/git-prompt.sh" ]; then
+#  source "$HOME/local/share/doc/git-core/contrib/completion/git-prompt.sh"
+#elif [ -f "/usr/share/git-core/contrib/completion/git-prompt.sh" ]; then
+#  source "/usr/share/git-core/contrib/completion/git-prompt.sh"
+#else
+#  echo "git-prompt.sh is not supported"
+#fi
+#
+#if [ -x "$(brew --prefix)/opt/fzf/install" -a ! -f "$HOME/.fzf.bash" ]; then
+#  source $(brew --prefix)/opt/fzf/install --all
+#fi

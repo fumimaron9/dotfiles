@@ -1,0 +1,5 @@
+--exclude=.git
+--exclude=.svn
+--recurse=yes
+--sort=yes
+--langmap=PHP:+.inc.tpl

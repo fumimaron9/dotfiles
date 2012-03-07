@@ -1,0 +1,9 @@
+$if Bash
+  set completion-ignore-case on
+  #set show-all-if-ambiguous on
+  set bell-style none
+  set visible-stats on
+
+  "\C-p":history-search-backward
+  "\C-n":history-search-forward
+$endif

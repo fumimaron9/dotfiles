@@ -1,0 +1,36 @@
+name: CI
+
+
+on:
+  push:
+    branches:
+      - "**"
+
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v1
+
+      - name: Set Output name for brew cache dir
+        id: brewCache
+        run: echo "::set-output name=dir::$(brew --cache)/downloads"
+
+      - name: Restore Brew cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.brewCache.outputs.dir }}
+          key: ${{ runner.os }}-${{ hashFiles('Brewfile') }}
+
+      - name: Run bootstrap
+        run: ./bootstrap.sh
+
+      - name: Run test
+        run: ./scripts/test.sh
+
+      - name: Rotate Brew cache
+        run: cd ${{ steps.brewCache.outputs.dir }} && ls -lsS | head -n 3 | awk '{ print $10 }' | xargs rm -rf
+

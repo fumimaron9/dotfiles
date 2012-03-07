@@ -1,0 +1,483 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin manager
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir . ',' . &runtimepath
+
+let g:dein#install_max_processes = 16
+let g:dein#install_progress_type = 'title'
+let g:dein#enable_notification = 1
+let s:toml = '~/.config/dein/plugins.toml'
+let s:lazy_toml = '~/.config/dein/plugins_lazy.toml'
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir, [s:toml, s:lazy_toml])
+  call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  call dein#end()
+  call dein#save_state()
+endif
+
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" plugins configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+if dein#tap('vim-ref')
+  let g:ref_no_default_key_mappings = 1
+  let g:ref_cache_dir = s:cache_home . '/vim-ref'
+	"let g:ref_use_cache = 1
+	let g:ref_use_vimproc = 1
+	let g:ref_detect_filetype         = {
+	\    'css':        'phpmanual',
+	\    'html':       ['phpmanual',  'javascript', 'jquery'],
+	\    'javascript': ['javascript', 'jquery'],
+	\    'php':        ['phpmanual',  'javascript', 'jquery']
+	\}
+  let g:ref_phpmanual_path = expand('~/local/man/php-chunked-xhtml')
+
+endif
+
+if dein#tap('vim-rooter')
+  let g:rooter_use_lcd = 1
+  let g:rooter_patterns = ['.git', '.git/', '.hg/', '.svn/']
+endif
+
+if dein#tap('auto-ctags.vim')
+  let g:auto_ctags = 1
+  let g:auto_ctags_directory_list = ['.git', '.svn']
+  let g:auto_ctags_tags_name = 'tags'
+  let g:auto_ctags_tags_args = '--tag-relative=yes --recurse --sort=yes'
+endif
+
+if dein#tap('unite.vim')
+  " unite画面で<C-l>をすることでキャッシュを更新
+  let g:unite_enable_start_insert = 0
+  let g:unite_data_directory = s:cache_home . '/unite'
+  let g:unite_source_rec_min_cache_files = 100
+  let g:unite_source_rec_max_cache_files = 10000
+  let g:unite_source_file_ignore_pattern = '\%(^\|/\)cache\%($\|/\)$\|\%(^\|/\)\.$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\)$\|\%(^\|/\)\.\%(vim\|hg\|git\|bzr\|svn\)\%($\|/\)'
+  let g:unite_source_file_rec_ignore_pattern = '\%(^\|/\)cache\%($\|/\)$\|\%(^\|/\)\.$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\)$\|\%(^\|/\)\.\%(vim\|hg\|git\|bzr\|svn\)\%($\|/\)'
+  "call unite#custom#source('file_rec/async', 'ignore_pattern', '\(png\|gif\|jpeg\|jpg\)$')
+  let g:unite_source_grep_search_word_highlight = 'Search'
+  if executable('pt')
+    let g:unite_source_rec_async_command = 'pt --nocolor --nogroup -l ""'
+    let g:unite_source_file_rec_async_command = 'pt --nocolor --nogroup -l ""'
+    let g:unite_source_grep_command = 'pt'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_encoding = 'utf-8'
+    let g:unite_source_grep_max_candidates = 200
+  endif
+endif
+
+if dein#tap('neomru.vim')
+  let g:neomru#file_mru_path = s:cache_home . '/neomru/file'
+  let g:neomru#file_mru_ignore_pattern = '\%(^\|/\)tmp/cache\%($\|/\)$\|\%(^\|/\)\.$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\)$\|\%(^\|/\)\.\%(vim\|hg\|git\|bzr\|svn\)\%($\|/\)'
+  let g:neomru#file_mru_limit= 1000
+  let g:neomru#directory_mru_path = s:cache_home . '/neomru/directory'
+  let g:neomru#directory_mru_ignore_pattern = '\%(^\|/\)tmp/cache\%($\|/\)$\|\%(^\|/\)\.$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\)$\|\%(^\|/\)\.\%(vim\|hg\|git\|bzr\|svn\)\%($\|/\)'
+  let g:neomru#directory_mru_limit = 1000
+endif
+
+if dein#tap('neocomplete.vim')
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#max_list = 10
+  let g:neocomplete#enable_ignore_case = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_camel_case = 0
+  let g:neocomplete#data_directory = s:cache_home . '/neocomplete'
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns._ = '\h\w*'
+endif
+
+if dein#tap('vimfiler')
+  ":e . vimデフォルトのエクスプローラをvimfilerで置き換える
+  let g:vimfiler_data_directory = s:cache_home . '/vimfiler'
+  let g:vimfiler_as_default_explorer = 1
+  let g:vimfiler_enable_auto_cd = 1
+  autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
+endif
+
+if dein#tap('vimshell')
+  let g:vimshell_temporary_directory = s:cache_home . '/vimshell'
+  let g:vimshell_interactive_update_time = 10
+  let g:vimshell_prompt = $USER.'$ '
+endif
+
+if dein#tap('unite-tag')
+  autocmd BufEnter *
+  \   if empty(&buftype)
+  \|    nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+  \|  endif
+
+  autocmd BufEnter *
+  \   if empty(&buftype)
+  \|    nnoremap <buffer> <C-t> :<C-u>Unite jump<CR>
+  \|  endif
+endif
+
+" lightline
+if dein#tap('lightline.vim')
+  let g:lightline = {
+    \ 'colorscheme': 'solarized',
+    \ }
+endif
+
+" editorconfig
+if dein#tap('editorconfig-vim')
+  silent! call editorconfig#ApplyHooks(a:config)
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 貼り付け時のコメントでるのを改善
+autocmd FileType * set formatoptions-=ro
+
+" insetモードから抜けるときにnopaste
+autocmd InsertLeave * set nopaste
+
+
+""""" session
+augroup SessionManage
+  if argc() == 0 && !&readonly
+    let s:last_session = s:cache_home . '/session.vim'
+
+    autocmd VimLeave *
+    \ if &ft != 'git' && &ft != 'gitcommit' |
+    \   exe 'mksession! ' . s:last_session |
+    \ endif
+
+    if filereadable(s:last_session)
+      autocmd VimEnter * nested
+      \ if &ft != 'git' && &ft != 'gitcommit' |
+      \   exe 'source ' . s:last_session |
+      \ endif
+    endif
+  endif
+augroup END
+
+" help
+"set keywordprg=:help " Open Vim internal help by K command
+
+autocmd FileType ref-phpmanual,help nnoremap <buffer> q <C-w>c
+
+" for webpack --watch
+autocmd BufNewFile,BufReadPre *.js set backupcopy=yes
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" configuration
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" viminfo change location
+set viminfo+=n~/.viminfo
+
+""""" filetype
+filetype plugin indent on
+
+" 使用するshellを設定
+set shell=$SHELL
+
+" インサートモード時にバックスペースを使う
+set backspace=indent,eol,start
+
+""""" ctags
+if has('path_extra')
+  set tags+=.git/tags;
+endif
+
+""""" encode & line
+set termencoding=utf-8
+set encoding=utf-8
+set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp,default,latin
+set ffs=unix,dos,mac
+
+""""" タブとインデント
+set noexpandtab
+set tabstop=4
+set softtabstop=4 "equal tabstop
+set shiftwidth=4 "equal tabstop
+
+""""" タブとインデント
+set expandtab
+set tabstop=2
+set softtabstop=2 "equal tabstop
+set shiftwidth=2 "equal tabstop
+
+""""" 単語
+set iskeyword+=-,@-@
+
+
+
+
+
+"set noautoindent
+set autoindent
+"set nosmartindent
+set smartindent
+"set nocindent
+"set cindent
+"set indentexpr=''
+
+
+
+""""" colorscheme
+set t_Co=256
+if &term =~ '256color'
+  set t_ut=
+endif
+
+if dein#tap('vim-colors-solarized')
+  set background=light
+  colorscheme solarized
+endif
+
+
+""""" 構文ハイライト
+syntax enable
+
+"set cursorline
+"highlight CursorLine ctermbg=Black
+"highlight CursorLine ctermfg=Blue
+"set cursorcolumn
+"highlight CursorColumn ctermbg=Blue
+"highlight CursorColumn ctermfg=Green
+
+" 重いときに括弧のハイライトを削除
+"let loaded_matchparen = 1
+
+
+""""" 折りたたみの設定
+if (v:version > 703)
+  set nofoldenable
+endif
+"set foldmethod=manual
+"set foldlevel=1
+"set foldnestmax=2
+
+
+""""" 見えない文字を視覚化
+set list
+set nolist
+
+
+
+""""" 行番号
+set number
+"set nonumber
+set ruler
+
+if (v:version > 703)
+  set textwidth=120
+  set formatoptions=q
+  set colorcolumn=+1
+endif
+
+""""" 行の折り返し
+"set wrap
+set nowrap
+"set guioptions+=b
+
+
+""""" ステータス行
+set laststatus=2
+
+
+""""" bom
+set nobomb
+
+
+""""" 文字コードと改行コード
+"set encoding=utf-8
+set fileencodings=utf-8,cp932,shift-jis,euc-jp,iso-2022-jp
+set fileformats=unix,dos
+
+
+""""" clipbord
+set clipboard=unnamed
+
+
+""""" search
+set hlsearch " 検索結果強調-:nohで解除
+set incsearch " インクリメンタルサーチを有効
+
+
+" screenでvimホイール有効化
+" マウス有効化
+if has('mouse')
+  set mouse=a
+  set ttymouse=xterm2
+endif
+
+
+" スワップを作らない
+"set noswapfile
+
+
+" バックアップを取らない
+set nobackup
+
+
+" カーソルを行頭、行末でとまらないようにする
+set whichwrap=b,s,h,s,<,>,[,]
+
+
+" escの反応を素早くする
+set timeout timeoutlen=1000 ttimeoutlen=75
+
+
+" vimコマンド補完の強化
+set wildmenu
+set wildmode=list:full
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" key mapping
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" check filetype
+" :verbose :setlocal filetype?
+
+" default mapping check
+" :help index.txt
+
+" user mapping check
+" :map or :nmap or :vap :vervose nmap ...
+
+
+"""""" unite vim
+" The prefix key.
+nnoremap [unite] <Nop>
+nmap <Space>u [unite]
+
+" バッファと最近使ったファイル
+noremap [unite]u :Unite buffer file_mru<CR>
+
+" バッファとブックマーク
+noremap [unite]b :Unite buffer bookmark<CR>
+
+" バッファとファイル一覧
+noremap [unite]o :Unite buffer file<CR>
+
+" クリップボード一覧
+noremap [unite]y :Unite -buffer-name=register register<CR>
+
+" 下位ディレクトリ検索
+"nnoremap <silent> <C-p> :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
+noremap [unite]f :<C-u>call DispatchUniteFileRecAsyncOrGit()<CR>
+function! DispatchUniteFileRecAsyncOrGit()
+  if isdirectory(getcwd().'/.git')
+    Unite -start-insert file_rec/git
+  else
+    Unite -start-insert file_rec/async:!
+  endif
+endfunction
+
+" grep
+noremap [unite]g :<C-u>call <SID>unite_smart_grep()<CR>
+"nnoremap <silent> [unite]gg :<C-u>call <SID>unite_smart_grep()<CR>
+function! s:unite_smart_grep()
+  if unite#sources#grep_git#is_available()
+    Unite -no-quit -winheight=15 grep/git:. -buffer-name=search-buffer
+  "elseif unite#sources#grep_hg#is_available()
+  "  Unite grep/hg:. -buffer-name=search-buffer
+  else
+    Unite -no-quit -winheight=15 grep:. -buffer-name=search-buffer
+  endif
+endfunction
+
+
+noremap [unite]w :<C-u>call <SID>unite_smart_grep()<CR>
+"nnoremap <silent> [unite]gg :<C-u>call <SID>unite_smart_grep()<CR>
+function! s:unite_smart_grep()
+  if unite#sources#grep_git#is_available()
+    UniteWithCursorWord -winheight=15 grep/git:. -buffer-name=search-buffer
+  "elseif unite#sources#grep_hg#is_available()
+  "  Unite grep/hg:. -buffer-name=search-buffer
+  else
+    UniteWithCursorWord -winheight=15 grep:. -buffer-name=search-buffer
+  endif
+endfunction
+
+
+
+
+
+
+
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-s> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+
+" unite+vimfiler
+"autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
+"autocmd FileType vimfiler call unite#custom_default_action('directory', 'cd')
+
+
+
+" vimfiler
+"F2: ide風に起動
+nnoremap <F2> :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle<CR>
+
+
+
+" vim-fugitive
+" status
+noremap <C-G><C-S> :Gstatus<CR>
+" autocmd FileType git setlocal nofoldenable
+autocmd FileType git setlocal foldenable foldlevel=0
+function! s:toggle_git_folding()
+  if &filetype ==# 'git'
+    setlocal foldenable!
+  endif
+endfunction
+
+
+
+" gitv
+" ブラウザモードで起動
+noremap <C-G><C-B> :Gitv<CR>
+" ファイルモードで起動
+noremap <C-G><C-F> :Gitv!<CR>
+"augroup gitv
+  autocmd FileType gitv call s:my_gitv_settings()
+"augroup END
+function! s:my_gitv_settings()
+  " Gitvはqで終了
+  setlocal iskeyword+=/,-,.
+  nnoremap <buffer> G :<C-u>Gbrowse <C-r>=<SID>gitv_get_current_hash()<CR><CR>
+  nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
+
+endfunction
+" commit hashを取得
+function! s:gitv_get_current_hash()
+  return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+
+
+" <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" unite outline
+nnoremap <silent> <Space>uo : <C-u>Unite -no-quit -vertical -winwidth=30 outline<CR>
