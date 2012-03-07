@@ -1,0 +1,3 @@
+https://github.com/jayharris/dotfiles-windows
+https://github.com/PProvost/dotfiles/tree/master/powershell
+https://github.com/tomasr/dotfiles

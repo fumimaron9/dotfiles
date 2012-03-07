@@ -1,0 +1,66 @@
+#cloud-config
+
+locale: en_US.UTF-8
+
+timezone: Asia/Tokyo
+
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDK8J9mNoMX/2io8/juE8Uum74dmvGQamYUVxProeyiCD7IGFEEB92IA7tAkXYj72pSeecnXa6RE9LIXkZ2rHQUSzIjxys3Asz8JmLvzcGWZCYFPtYXevoA8zglPkxABKoXiOTuXMKKWcecqFOZuq40iXtrFDIQxv3b0Wh7r117iPsNZhUqBHmSiFeX87d3NG59dtAx8GKHXsC8uTrTRxUKYIJ47dGIkXa78jphJjLUSyUqNQizTyeZVKZ93FRJvxJmAWFs/5MzIwj2X4DdQ9VYGc5sPwgDHk+k+eTE9vxtaFl0BaceDdBP0RJ8MamY30TQEzMPHfkVVoNp5LBSs0hPFA1rmns2wGLesxbkScyV8SYuNQZwUFWS4tSaXeS5wzeuZdofMvDDrv6KclfbI2SO1dF32NWvh2sfuurcQjoG5+f6vEEbai8U5WrWgx25pBLc2g6qM5d18vZ2KV9bOoYra67ClzrxYpyZqEdEJSwfTAacWeM5R6RdPtqKVl95KLqnKxXRifTvy89Q1wm7ZCwN7YtW7JvfhpT1M3rSEtKXFGIpNretAgJLDhHe+YrauczE00PrKrH1BNisBy9l8tPlcA6ZQ8r61axIOBXV6cv8ogXxvQqIGPxy9WnBd/RgdzikMhJuaF4UsbyawIswKar7P8i5NtwFEJq8fKtoIagsKQ== fumimaron9@f9-macbook-pro
+
+repo_update: true
+repo_upgrade: all
+
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=arm64 signed-by=$KEY_FILE] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+packages:
+  - unzip
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - jq
+
+#system_info:
+#  default_user:
+#    groups:
+#      - docker
+
+snap:
+  commands:
+    - [install, multipass-sshfs]
+    - [install, nvim, --classic]
+    - [install, universal-ctags]
+    - [install, rustup, --classic]
+    - [install, go, --classic]
+    #- [install, node, --classic]
+
+runcmd:
+  - chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+  #- rustup update stable
+  #- npm install --global yarn
+  - gpasswd -a ubuntu docker
+  # change the port of the docker daemon to 2375
+  - [sed, -i, -e, 's/ExecStart=\/usr\/bin\/dockerd -H fd:\/\//ExecStart=\/usr\/bin\/dockerd -H tcp:\/\/0.0.0.0:2375 -H fd:\/\//', /lib/systemd/system/docker.service]
+  # change the location for temporary files such as socket files
+  - [sed, -i, -e, 's/ExecStart=\/usr\/bin\/containerd/ExecStart=\/usr\/bin\/containerd\nEnvironment=XDG_RUNTIME_DIR=\/run\/user\/1000/', /lib/systemd/system/containerd.service]
+  - [systemctl, daemon-reload]
+  - [systemctl, restart, docker, containerd]
+  # install docker-compose
+  - curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/libexec/docker/cli-plugins/docker-compose
+  - chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+  - ln -sf /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
+  # install awscli
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+  - unzip awscliv2.zip
+  - sudo ./aws/install
+  - rm -rf awscliv2.zip aws
+  # install gcloud
+  - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-367.0.0-linux-arm.tar.gz
+  - tar xfz google-cloud-sdk-367.0.0-linux-arm.tar.gz -C /usr/local
+  - /usr/local/google-cloud-sdk/install.sh --quiet
+  - find /usr/local/google-cloud-sdk/bin/* -prune -executable -type f | awk -F"/" '{ print $NF }' | xargs -I{} sudo ln -sf /usr/local/google-cloud-sdk/bin/{} /usr/local/bin/{}
+  - rm -rf google-cloud-sdk-367.0.0-linux-arm.tar.gz
+

@@ -1,0 +1,61 @@
+export DOTFILES_PATH=$HOME/dotfiles
+
+export IGNOREEOF=2
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+export GPG_TTY=$(tty)
+
+# for wsl
+if [ $(uname -r | grep -i "microsoft") ]; then
+  export PATH="$(echo "$PATH" | sed -r -e 's;:/mnt/[^:]+;;g')"
+fi
+
+export PATH=/opt/homebrew/bin:$HOME/.local/bin:$HOME/local/bin:$HOME/bin:/usr/local/bin:/usr/bin/:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+
+if [ "$(uname)" = "Darwin" ]; then
+  export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH
+  export MANPATH=$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH
+elif [ $(uname -r | grep -i "microsoft") ]; then
+  export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+  test $(command -v brew) && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+#elif [ "$(uname)" = "Linux" ] && [ ! $(uname -r | grep -i "microsoft") ]; then
+#  export PATH=$HOME/.linuxbrew/bin:$PATH
+#  test $(command -v brew) && eval $($HOME/.linuxbrew/bin/brew shellenv)
+fi
+
+if [ $(command -v nvim) ]; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
+#if [[ -v TERMINAL_EMULATOR ]]; then
+if [ ! -z "${TERMINAL_EMULATOR+x}" ]; then
+  export EDITOR="vim -u $HOME/.vimrc_simple"
+fi
+
+# diff-highlight
+if [ $(command -v brew) ] && [ -d "$(brew --prefix)/share/git-core/contrib/diff-highlight" ]; then
+  export PATH=$(brew --prefix)/share/git-core/contrib/diff-highlight:$PATH
+elif [ -d "$HOME/local/share/doc/git-core/contrib/diff-highlight" ]; then
+  export PATH=$HOME/local/share/doc/git-core/contrib/diff-highlight:$PATH
+elif [ -d "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight" ]; then
+  export PATH=/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight:$PATH
+elif [ -d "/usr/share/doc/git/contrib/diff-highlight" ]; then
+  export PATH=/usr/share/doc/git/contrib/diff-highlight:$PATH
+else
+  echo "diff-highlight is not supported"
+fi
+
+if [ "$(uname)" = "Darwin" ]; then
+  export PIPENV_VENV_IN_PROJECT=1
+  export PATH="$(brew --prefix)/opt/openjdk/bin:$PATH"
+
+  if command -v nodenv > /dev/null 2>&1; then
+    eval "$(nodenv init -)"
+  fi
+fi
+
