@@ -43,6 +43,8 @@ else
   echo "diff-highlight is not supported"
 fi
 
+export PIPENV_VENV_IN_PROJECT=1
+
 if command -v nodenv > /dev/null 2>&1; then
   eval "$(nodenv init -)"
 fi

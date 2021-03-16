@@ -81,6 +81,10 @@ echo
 . $DOTFILES_PATH/scripts/deploy.sh
 echo
 
+# default python
+ln -nfs /usr/local/bin/python3 /usr/local/bin/python
+ln -nfs /usr/local/bin/pip3 /usr/local/bin/pip
+
 # gpg
 mkdir -p "$HOME/.gnupg" && chmod 700 "$HOME/.gnupg"
 echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" > $HOME/.gnupg/gpg-agent.conf
