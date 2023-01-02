@@ -1,0 +1,29 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = false
+
+palette = "nord"
+
+[palettes.nord]
+# Dark shades
+black = "#2E3440"         # Nord0: polar night (darkest)
+red = "#BF616A"           # Nord11: aurora (red)
+green = "#A3BE8C"         # Nord14: aurora (green)
+yellow = "#EBCB8B"        # Nord13: aurora (yellow)
+blue = "#5E81AC"          # Nord10: frost (blue)
+purple = "#B48EAD"        # Nord15: aurora (purple)
+cyan = "#88C0D0"          # Nord8: frost (light blue)
+white = "#D8DEE9"         # Nord4: snow storm (lightest)
+
+# Bright shades
+bright-black = "#4C566A"  # Nord3: polar night (brightest of dark shades)
+bright-red = "#D08770"    # Nord12: aurora (orange - used as bright red)
+bright-green = "#8FBCBB"  # Nord7: frost (teal - used as bright green)
+bright-yellow = "#EBCB8B" # Nord13: aurora (yellow - same as normal yellow)
+bright-blue = "#81A1C1"   # Nord9: frost (mid blue - used as bright blue)
+bright-purple = "#B48EAD" # Nord15: aurora (purple - same as normal purple)
+bright-cyan = "#8FBCBB"   # Nord7: frost (teal - used as bright cyan)
+bright-white = "#ECEFF4"  # Nord6: snow storm (brightest)
+
+[gcloud]
+disabled = true

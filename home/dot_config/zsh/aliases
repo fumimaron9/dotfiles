@@ -1,0 +1,21 @@
+alias vi=$EDITOR
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+#alias l='ls -X -F --color=auto'
+#alias ll='ls -X -F -lh --color=auto --time-style=long-iso'
+alias ls='lsd'
+alias l='lsd'
+alias ll='lsd -l'
+alias lt='lsd --tree'
+alias tree='lsd --tree'
+
+alias less='less -rq'
+alias grep='grep -E --color --exclude="*.swp" --exclude-dir={.svn,.git}'
+
+alias tmux='tmux -2'
+
+# ij ~/Workspaces/xxx
+alias ij='open -b com.jetbrains.intellij'

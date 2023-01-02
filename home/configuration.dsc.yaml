@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  assertions:
+    - resource: Microsoft.Windows.Developer/OsVersion
+      id: verifyMinOSVersion
+      directives:
+        description: Verify min OS version requirement
+        allowPrerelease: true
+      settings:
+        MinVersion: '10.0.22000'
+
+  resources:
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      id: enableDeveloperMode
+      directives:
+        description: Enable Developer Mode
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: installPowerToys
+      directives:
+        description: Install PowerToys
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: installChezmoi
+      directives:
+        description: Install chezmoi
+        allowPrerelease: true
+      settings:
+        id: twpayne.chezmoi
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: installGit
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+
