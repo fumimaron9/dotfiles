@@ -21,6 +21,7 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+export PROMPT_EOL_MARK=""
 
 ########## hooks
 DISABLE_AUTO_TITLE="true"
@@ -123,7 +124,7 @@ zinit light "trapd00r/LS_COLORS"
 zinit ice \
   as"program" from"gh-r" \
   atclone'./starship init zsh > init.zsh; ./starship completions zsh > _starship' atpull"%atclone" \
-  src"init.zsh" 
+  src"init.zsh"
 zinit light "starship/starship"
 
 
