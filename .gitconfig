@@ -1,5 +1,5 @@
 [user]
-	name = kinoshita
+	name = fumimaron9
 	email = fumimaron9@gmail.com
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFQytwYHGX3A7qSIFIh36tPdAi0jbnZZ3g5nCcKUOGal fumimaron9@gmail.com ed25519
 [core]
@@ -28,3 +28,8 @@
 [gpg]
   format = ssh
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
