@@ -61,3 +61,13 @@ if [ "$(uname)" = "Darwin" ]; then
   export PATH="$HOME/.docker/bin:$PATH"
 fi
 
+
+if [ -f "$HOME/.config/op/plugins.sh" ]; then
+  source /Users/fumimaron9/.config/op/plugins.sh
+fi
+
+if [ -d "$HOME/go/bin" ]; then
+  export PATH="$HOME/go/bin:$PATH"
+fi
+
+
