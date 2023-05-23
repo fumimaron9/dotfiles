@@ -103,3 +103,4 @@ cask "github"
 #cask "burp-suite"
 
 #mas "Feedly", id: 865500966
+mas "1Password 7", id: 1333542190
