@@ -15,7 +15,6 @@ Host *
   ServerAliveInterval 60
   GSSAPIAuthentication no
   IdentityFile ~/.ssh/id_ed25519
-  IdentitiesOnly yes
 EOF
 
   if [[ "$(uname)" == "Darwin" ]]; then
