@@ -17,17 +17,15 @@
 	log = diff-highlight | less -R
 	show = diff-highlight | less -R
 	diff = diff-highlight | less -R
-#[commit]
-#	template = /home/kinosita/.gitmessage
 [apply]
-  whitespace = fix
-# TODO: wait keybase support sillicon
+	whitespace = fix
 [commit]
 	gpgsign = true
-
+#	template = /home/kinosita/.gitmessage
 [gpg]
-  format = ssh
-
+	format = ssh
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
