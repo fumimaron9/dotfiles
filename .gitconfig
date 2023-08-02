@@ -13,6 +13,7 @@
 	autocorrect = 1
 [push]
 	default = simple
+	autoSetupRemote = true
 [pager]
 	log = diff-highlight | less -R
 	show = diff-highlight | less -R
