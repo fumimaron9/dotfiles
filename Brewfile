@@ -8,6 +8,8 @@ tap "teamookla/speedtest"
 tap "ariga/tap"
 
 brew "gcc"
+brew "cmake"
+brew "clang-format"
 brew "java"
 brew "python"
 brew "rust"
@@ -103,6 +105,7 @@ cask "wireshark"
 #cask "openvpn-connect"
 #cask "keybase"
 #cask "adobe-creative-cloud"
+cask "grammarly-desktop"
 #mas "Feedly", id: 865500966
 mas "1Password 7", id: 1333542190
 mas "Amazon Kindle", id: 302584613
