@@ -1,12 +1,12 @@
 return {
   {
     "nvim-tree/nvim-tree.lua",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
     cmd = {
       "NvimTreeToggle",
       "NvimTreeFocus"
-    },
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
     },
     lazy = false,
     config = function()
@@ -39,6 +39,16 @@ return {
       end
 
       vim.api.nvim_create_autocmd('VimEnter', { callback = open_nvim_tree })
+    end
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    cmd = "Telescope",
+    config = function()
+      require("telescope").setup()
     end
   }
 }

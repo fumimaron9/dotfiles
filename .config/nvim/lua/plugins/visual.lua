@@ -10,11 +10,11 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
-    cmd = {
-      "BufferLineGoToBuffer"
-    },
     dependencies = {
       "nvim-tree/nvim-web-devicons"
+    },
+    cmd = {
+      "BufferLineGoToBuffer"
     },
     lazy = false,
     config = function()
