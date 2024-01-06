@@ -50,8 +50,18 @@ return {
       })
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+        vim.lsp.diagnostic.on_publish_diagnostics,
+        {
+          virtual_text = false
+        }
       )
     end
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    lazy = true
   }
 }
