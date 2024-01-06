@@ -48,6 +48,7 @@ return {
     },
     build = ":TSUpdate",
     lazy = false,
+    priority = 1000,
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "typescript", "html" },
