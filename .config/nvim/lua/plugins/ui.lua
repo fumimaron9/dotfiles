@@ -47,7 +47,7 @@ return {
       "nvim-lua/plenary.nvim"
     },
     cmd = "Telescope",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       require("telescope").setup()
 
