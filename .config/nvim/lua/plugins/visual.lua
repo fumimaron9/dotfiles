@@ -19,9 +19,7 @@ return {
     },
     lazy = false,
     priority = 1000,
-    config = function()
-      require("bufferline").setup()
-    end
+    opts = {}
   },
   {
     "nvim-lualine/lualine.nvim",
