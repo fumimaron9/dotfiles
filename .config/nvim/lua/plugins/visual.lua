@@ -16,10 +16,10 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
+    lazy = false,
     config = function()
       require("bufferline").setup()
-    end,
-    lazy = false
+    end
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -28,7 +28,9 @@ return {
     },
     config = function()
       require("lualine").setup({
-        options = { theme = "gruvbox" }
+        options = {
+          theme = "gruvbox"
+        }
       })
     end
   }
