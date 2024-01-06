@@ -9,9 +9,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("nvim-tree").setup({
-        open_on_setup_file = true
-      })
+      require("nvim-tree").setup()
     end
   }
 }
