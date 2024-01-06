@@ -124,7 +124,7 @@ zinit light "trapd00r/LS_COLORS"
 zinit ice \
   as"program" from"gh-r" \
   atclone'./starship init zsh > init.zsh; ./starship completions zsh > _starship' atpull"%atclone" \
-  src"init.zsh"
+  atload'eval "$(starship init zsh)"'
 zinit light "starship/starship"
 
 
