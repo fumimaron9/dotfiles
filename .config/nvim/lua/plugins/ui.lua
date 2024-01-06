@@ -3,6 +3,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
@@ -16,6 +17,7 @@ return {
       require("telescope").setup()
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("ui-select")
 
       local builtin = require("telescope.builtin")
       vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -29,8 +31,6 @@ return {
         ":Telescope file_browser<CR>",
         { noremap = true }
       )
-
-      -- open file_browser with the path of the current buffer
       vim.api.nvim_set_keymap(
         "n",
         "<space>fb",
