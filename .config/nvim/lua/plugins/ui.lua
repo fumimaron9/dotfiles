@@ -11,7 +11,7 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
     },
-    event = "VeryLazy",
+    event = "VimEnter",
     cmd = "Telescope",
     config = function()
       require("telescope").setup()
@@ -74,7 +74,7 @@ return {
         require("nvim-tree.api").tree.toggle({ focus = true, find_file = true, })
       end
 
-      vim.api.nvim_create_autocmd('VimEnter', { callback = open_nvim_tree })
+      vim.api.nvim_create_autocmd("VimEnter", { callback = open_nvim_tree })
     end
   }
 }
