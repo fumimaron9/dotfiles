@@ -28,13 +28,11 @@ return {
     },
     lazy = false,
     priority = 1000,
-    config = function()
-      require("lualine").setup({
-        options = {
-          theme = "gruvbox"
-        }
-      })
-    end
+    opts = {
+      options = {
+        theme = "gruvbox"
+      }
+    }
   },
   {
     "nvim-treesitter/nvim-treesitter",
