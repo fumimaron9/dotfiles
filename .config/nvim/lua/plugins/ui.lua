@@ -40,9 +40,11 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim"
     },
     event = "VeryLazy",
+    cmd = "Telescope",
     config = function()
       require("telescope").setup()
 
@@ -52,5 +54,9 @@ return {
       vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
     end
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
   }
 }

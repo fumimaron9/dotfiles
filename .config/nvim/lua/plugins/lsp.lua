@@ -1,14 +1,13 @@
 return {
   {
     "williamboman/mason.nvim",
+    event = "User FileOpened",
     cmd = {
       "Mason",
       "MasonInstall",
       "MasonUninstall",
       "MasonUninstallAll",
-      "MasonLog",
-      "MasonUpdate",      -- AstroNvim extension here as well
-      "MasonUpdateAll",   -- AstroNvim specific
+      "MasonLog"
     },
     build = ":MasonUpdate",
     opts = {},
@@ -20,6 +19,11 @@ return {
       { "neovim/nvim-lspconfig" },
       { "echasnovski/mini.completion", version = false },
     },
+    cmd = {
+      "LspInstall",
+      "LspUninstall"
+    },
+    event = "User FileOpened",
     config = function()
       local lspconfig = require("lspconfig")
       require("mini.completion").setup()
