@@ -22,7 +22,7 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
-      require('mini.completion').setup()
+      require("mini.completion").setup()
       require("mason-lspconfig").setup_handlers({
         function(server_name)
           lspconfig[server_name].setup(opts)
@@ -58,7 +58,7 @@ return {
     end
   },
   {
-    'jay-babu/mason-null-ls.nvim',
+    "jay-babu/mason-null-ls.nvim",
     dependencies = {
       "williamboman/mason.nvim",
       "nvimtools/none-ls.nvim"
