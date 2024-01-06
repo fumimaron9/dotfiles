@@ -129,14 +129,6 @@ zinit light "starship/starship"
 
 
 ########## fuzzy finder
-# install script of skim unsupported arm
-#zinit ice wait lucid \
-#  as"program" \
-#  atclone"./install" atpull"%atclone" \
-#  pick"bin/*" multisrc"shell/key-bindings.zsh" \
-#  atload'export SKIM_DEFAULT_OPTIONS="--layout=reverse"'
-#zinit load "lotabout/skim"
-
 zinit ice wait lucid \
   as"program" \
   atclone"cargo build --release; mkdir -p bin; mv target/release/sk bin" atpull"%atclone" \
@@ -152,12 +144,32 @@ zinit light "lotabout/skim"
 #   atload"ENHANCD_FILTER=sk:fzf:cd; export ENHANCD_FILTER"
 # zinit light "b4b4r07/enhancd"
 
+zinit ice wait"0c" lucid \
+  as"command" from"gh-r"
+zinit light "junegunn/fzf"
+
+
+zinit ice wait'0c' lucid \
+  multisrc'shell/{completion,key-bindings}.zsh' \
+  id-as'junegunn/fzf_completions' \
+  pick'/dev/null'
+zinit light "junegunn/fzf"
+
+
 zinit ice wait lucid \
   as"program" \
   atclone"cargo build --release; mkdir -p bin; mv target/release/zoxide bin" atpull"%atclone" \
   pick"bin/*" \
   atload'eval "$(zoxide init zsh)"'
 zinit light "ajeetdsouza/zoxide"
+
+
+zinit ice wait lucid \
+  as"program" \
+  atclone"cargo build --release; mkdir -p bin; mv target/release/fd bin" atpull"%atclone" \
+  pick"bin/*"
+zinit light "sharkdp/fd"
+
 
 # https://blog.katio.net/page/zplugin
 
