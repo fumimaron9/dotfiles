@@ -7,6 +7,7 @@ tap "snyk/tap"
 tap "teamookla/speedtest"
 tap "ariga/tap"
 
+brew "wget"
 brew "gcc"
 brew "cmake"
 brew "clang-format"
