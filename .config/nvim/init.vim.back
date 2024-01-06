@@ -14,12 +14,6 @@ elseif has('unix')
 endif
 
 
-let g:nvim_home = '~/.config/nvim'
-if filereadable(expand(g:nvim_home .  '/echo.vim'))
-  execute 'source ' . expand(g:nvim_home .  '/echo.vim')
-endif
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 " plugin manager
 """""""""""""""""""""""""""""""""""""""""""""""""
