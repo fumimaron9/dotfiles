@@ -4,10 +4,6 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    cmd = {
-      "NvimTreeToggle",
-      "NvimTreeFocus"
-    },
     lazy = false,
     config = function()
       require("nvim-tree").setup({
@@ -46,7 +42,6 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim"
     },
-    cmd = "Telescope",
     event = "VeryLazy",
     config = function()
       require("telescope").setup()
