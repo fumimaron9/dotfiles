@@ -58,9 +58,33 @@ return {
     end
   },
   {
-    "nvimtools/none-ls.nvim",
+    'jay-babu/mason-null-ls.nvim',
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim"
     },
+    event = {
+      "BufReadPre",
+      "BufNewFile"
+    },
+    config = function()
+      require("mason-null-ls").setup({
+        ensure_installed = {
+          "prettier", -- prettier formatter
+          "stylua", -- lua formatter
+          "eslint_d", -- js linter
+          "golangci_lint", -- go linter
+          "terraform_fmt", -- terraform formatter
+          "terraform_validate", -- terraform linter
+          "shellcheck", -- shell linter
+          "yamllint", -- yaml linter
+          "buf", -- buf formatter
+          "beautysh", -- shell formatter
+          "gofumpt", -- go formatter
+          "yamlfmt", -- yaml formatter
+          "spell", -- spell checker
+        }
+      })
+    end
   }
 }

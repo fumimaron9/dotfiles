@@ -1,6 +1,7 @@
 return {
   {
     "ellisonleao/gruvbox.nvim",
+    lazy = false,
     priority = 1000,
     config = function ()
       require("gruvbox").setup()
@@ -17,6 +18,7 @@ return {
       "BufferLineGoToBuffer"
     },
     lazy = false,
+    priority = 1000,
     config = function()
       require("bufferline").setup()
     end
@@ -26,6 +28,8 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
+    lazy = false,
+    priority = 1000,
     config = function()
       require("lualine").setup({
         options = {
