@@ -68,6 +68,7 @@ brew "nikto"
 #brew "httpie"
 #brew "mosh"
 
+cask "homebrew/cask-fonts/font-hack-nerd-font"
 cask "homebrew/cask-fonts/font-jetbrains-mono-nerd-font"
 cask "1password"
 cask "1password-cli"
