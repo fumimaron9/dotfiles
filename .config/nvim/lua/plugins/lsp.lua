@@ -86,6 +86,7 @@ return {
           "stylua", -- lua formatter
           "eslint_d", -- js linter
           "golangci_lint", -- go linter
+          "terraform_fmt", -- terraform formatter
           "terraform_validate", -- terraform linter
           "shellcheck", -- shell linter
           "yamllint", -- yaml linter
@@ -109,10 +110,12 @@ return {
       { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "LspAttach" },
       { "hrsh7th/cmp-calc", event = "InsertEnter" },
       { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
+      { "hrsh7th/vim-vsnip", event = "InsertEnter" },
       { "hrsh7th/vim-vsnip-integ", event = "InsertEnter" },
+      { "petertriho/cmp-git", dependencies = { "nvim-lua/plenary.nvim" }, event = "InsertEnter", opts = {} },
       { "onsails/lspkind.nvim", event = "LspAttach" },
       { "rafamadriz/friendly-snippets", event = "InsertEnter" },
-      "cmp-nvim-lsp",
+      "cmp-nvim-lsp"
     },
     event = {
       "InsertEnter",
@@ -143,7 +146,8 @@ return {
           { name = "nvim_lsp" },
           { name = "vsnip" },
           { name = "nvim_lsp_signature_help" },
-          { name = "calc" }
+          { name = "calc" },
+          { name = "git" }
         }, {
           { name = "buffer" }
         }),
@@ -167,9 +171,9 @@ return {
       -- Set configuration for specific filetype.
       cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
-          { name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+          { name = "git" }
         }, {
-          { name = "buffer" },
+          { name = "buffer" }
         })
       })
 
