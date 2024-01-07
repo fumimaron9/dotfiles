@@ -17,22 +17,30 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp"
+      "cmp-nvim-lsp"
     },
     cmd = {
       "LspInstall",
       "LspUninstall"
     },
-    event = "User FileOpened",
+    lazy = false,
     config = function()
-      local lspconfig = require("lspconfig")
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "lua_ls",
+          "vtsls"
+        },
+      })
+
       require("mason-lspconfig").setup_handlers({
         function(server_name)
-          lspconfig[server_name].setup(opts)
-        end,
-        ["vtsls"] = function()
-          lspconfig["vtsls"].setup({})
-        end,
+          require("lspconfig")[server_name].setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            on_attach = function(client, bufnr)
+
+            end
+          })
+        end
       })
 
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -77,7 +85,6 @@ return {
           "stylua", -- lua formatter
           "eslint_d", -- js linter
           "golangci_lint", -- go linter
-          "terraform_fmt", -- terraform formatter
           "terraform_validate", -- terraform linter
           "shellcheck", -- shell linter
           "yamllint", -- yaml linter
@@ -94,6 +101,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
+      "cmp-nvim-lsp",
       { "hrsh7th/cmp-buffer", event = "InsertEnter" },
       { "hrsh7th/cmp-path", event = "InsertEnter" },
       { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
@@ -182,13 +190,6 @@ return {
           { name = "cmdline" }
         })
       })
-
-      -- Set up lspconfig.
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-      require("lspconfig")["vtsls"].setup {
-        capabilities = capabilities
-      }
     end
   }
 }
