@@ -31,6 +31,12 @@ return {
     opts = {
       options = {
         theme = "gruvbox"
+      },
+      extensions = {
+        "lazy",
+        "man",
+        "mason",
+        "quickfix"
       }
     }
   },
