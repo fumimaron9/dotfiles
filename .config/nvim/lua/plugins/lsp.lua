@@ -205,5 +205,10 @@ return {
       vim.keymap.set("n", "<space>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>")
       vim.keymap.set("n", "<space>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>")
     end
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}
   }
 }
