@@ -191,5 +191,19 @@ return {
 
       vim.cmd("let g:vsnip_filetypes = {}")
     end
+  },
+  {
+    "onsails/diaglist.nvim",
+    event = {
+      "User LspDiagnosticsChanged",
+      "WinEnter",
+      "BufEnter"
+    },
+    config = function()
+      require("diaglist").init()
+
+      vim.keymap.set("n", "<space>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>")
+      vim.keymap.set("n", "<space>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>")
+    end
   }
 }
