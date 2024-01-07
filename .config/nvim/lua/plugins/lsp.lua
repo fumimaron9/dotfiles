@@ -188,6 +188,8 @@ return {
           { name = "cmdline" }
         })
       })
+
+      vim.cmd("let g:vsnip_filetypes = {}")
     end
   }
 }
