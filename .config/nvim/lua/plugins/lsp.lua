@@ -218,5 +218,21 @@ return {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {}
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    opts = {}
+  },
+  {
+    "brenoprata10/nvim-highlight-colors",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      enable_tailwind = true
+    }
   }
+  --"nvim-ts-autotag",
+  --"neogit",
+  --"diffview.nvim",
+  --"git-messenger.vim"
 }
