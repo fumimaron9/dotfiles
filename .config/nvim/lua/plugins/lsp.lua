@@ -94,19 +94,19 @@ return {
       })
     end
   },
-  { "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
+  { "hrsh7th/cmp-nvim-lsp", event = "LspAttach" },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
       { "hrsh7th/cmp-buffer", event = "InsertEnter" },
       { "hrsh7th/cmp-path", event = "InsertEnter" },
       { "hrsh7th/cmp-cmdline", event = "ModeChanged" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help", event = "InsertEnter" },
-      { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "InsertEnter" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", event = "LspAttach" },
+      { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "LspAttach" },
       { "hrsh7th/cmp-calc", event = "InsertEnter" },
       { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
       { "hrsh7th/vim-vsnip-integ", event = "InsertEnter" },
-      { "onsails/lspkind.nvim", event = "InsertEnter" },
+      { "onsails/lspkind.nvim", event = "LspAttach" },
       { "rafamadriz/friendly-snippets", event = "InsertEnter" },
       "cmp-nvim-lsp",
     },
