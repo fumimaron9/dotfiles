@@ -73,7 +73,7 @@ return {
     "jay-babu/mason-null-ls.nvim",
     dependencies = {
       "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim"
+      { "nvimtools/none-ls.nvim", event = { "BufReadPre", "BufNewFile" }, opts = { diagnostics_format = "#{m} (#{s}: #{c})" } }
     },
     event = {
       "BufReadPre",
@@ -95,7 +95,7 @@ return {
           "gofumpt", -- go formatter
           "yamlfmt", -- yaml formatter
           "spell", -- spell checker
-        }
+        },
       })
     end
   },
