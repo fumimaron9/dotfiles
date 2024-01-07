@@ -30,7 +30,7 @@ return {
     priority = 1000,
     opts = {
       options = {
-        theme = "gruvbox"
+        theme = "auto"
       },
       extensions = {
         "lazy",
