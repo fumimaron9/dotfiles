@@ -35,10 +35,7 @@ return {
       require("mason-lspconfig").setup_handlers({
         function(server_name)
           require("lspconfig")[server_name].setup({
-            capabilities = require("cmp_nvim_lsp").default_capabilities(),
-            on_attach = function(client, bufnr)
-
-            end
+            capabilities = require("cmp_nvim_lsp").default_capabilities()
           })
         end
       })
@@ -101,19 +98,17 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "cmp-nvim-lsp",
       { "hrsh7th/cmp-buffer", event = "InsertEnter" },
       { "hrsh7th/cmp-path", event = "InsertEnter" },
-      { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
       { "hrsh7th/cmp-cmdline", event = "ModeChanged" },
-
       { "hrsh7th/cmp-nvim-lsp-signature-help", event = "InsertEnter" },
       { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "InsertEnter" },
       { "hrsh7th/cmp-calc", event = "InsertEnter" },
-      { "onsails/lspkind.nvim", event = "InsertEnter" },
-      { "hrsh7th/vim-vsnip", event = "InsertEnter" },
+      { "hrsh7th/cmp-vsnip", event = "InsertEnter" },
       { "hrsh7th/vim-vsnip-integ", event = "InsertEnter" },
+      { "onsails/lspkind.nvim", event = "InsertEnter" },
       { "rafamadriz/friendly-snippets", event = "InsertEnter" },
+      "cmp-nvim-lsp",
     },
     event = {
       "InsertEnter",
@@ -142,10 +137,11 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "vsnip" },
+          { name = "vsnip" }
         }, {
           { name = "buffer" },
           { name = "calc" },
+          { name = "nvim_lsp_signature_help" }
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -177,6 +173,8 @@ return {
       cmp.setup.cmdline({ '/', '?' }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
+          { name = "nvim_lsp_document_symbol" }
+        }, {
           { name = "buffer" }
         }
       })
