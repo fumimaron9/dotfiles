@@ -39,34 +39,5 @@ return {
         "quickfix"
       }
     }
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    cmd = {
-      "TSInstall",
-      "TSBufEnable",
-      "TSBufDisable",
-      "TSModuleInfo"
-    },
-    build = ":TSUpdate",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      ensure_installed = {
-        "c",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "elixir",
-        "heex",
-        "javascript",
-        "typescript",
-        "html"
-      },
-      sync_install = false,
-      highlight = { enable = true },
-      indent = { enable = true },
-    }
   }
 }
