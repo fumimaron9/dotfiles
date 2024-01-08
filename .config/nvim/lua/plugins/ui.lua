@@ -93,6 +93,7 @@ return {
     },
     init = function()
       vim.api.nvim_create_autocmd("VimEnter", {
+        desc = "filer opens when file argument does not exist",
         callback = function(data)
           local real_file = vim.fn.filereadable(data.file) == 1
 
