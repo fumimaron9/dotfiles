@@ -35,7 +35,6 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
     },
-    event = "VimEnter",
     cmd = "Telescope",
     config = function()
       require("telescope").setup()
@@ -46,12 +45,12 @@ return {
     keys = function()
       local builtin = require("telescope.builtin")
       return {
-        { "<leader>ff", builtin.find_files, desc = "find files" },
-        { "<leader>fg", builtin.live_grep, desc = "live grep" },
+        { "<leader>ff", builtin.find_files, desc = "find_files" },
+        { "<leader>fg", builtin.live_grep, desc = "live_grep" },
         { "<leader>fb", builtin.buffers, desc = "buffers" },
-        { "<leader>fh", builtin.help_tags, desc = "help tag" },
-        { "<leader>pf", ":Telescope file_browser<CR>", desc = "file browser" },
-        { "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "ssss"}
+        { "<leader>fh", builtin.help_tags, desc = "help_tags" },
+        { "<leader>pf", ":Telescope file_browser<CR>", desc = "file_browser" },
+        { "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "file_browser with path"}
       }
     end
   },
@@ -60,42 +59,39 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    lazy = false,
-    config = function()
-      require("nvim-tree").setup({
-        sort = {
-          sorter = "case_sensitive",
-        },
-        view = {
-          width = 30,
-        },
-        renderer = {
-          group_empty = true,
-        },
-        filters = {
-          dotfiles = true,
-        },
-        update_focused_file = {
-          enable = true,
-          update_cwd = true
-        }
-      })
-
+    init = function()
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function(data)
           local real_file = vim.fn.filereadable(data.file) == 1
 
-          -- buffer is a [No Name]
           local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 
           if real_file and not no_name then
             return
           end
 
-          require("nvim-tree.api").tree.toggle({ focus = true, find_file = true, })
+          require("nvim-tree.api").tree.toggle({ focus = true, find_file = true })
         end
       })
-    end
+    end,
+    opts = {
+      sort = {
+        sorter = "case_sensitive",
+      },
+      view = {
+        width = 30,
+      },
+      renderer = {
+        group_empty = true,
+      },
+      filters = {
+        dotfiles = true,
+      },
+      update_focused_file = {
+        enable = true,
+        update_cwd = true
+      }
+    }
   },
   {
     "akinsho/toggleterm.nvim",
