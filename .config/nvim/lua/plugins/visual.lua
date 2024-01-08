@@ -4,7 +4,9 @@ return {
     lazy = false,
     priority = 1000,
     opts = {},
-    config = function ()
+    config = function (_, opts)
+      require("gruvbox").setup(opts)
+
       vim.opt.background = "dark"
       vim.cmd([[colorscheme gruvbox]])
     end,
@@ -14,12 +16,9 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
-    cmd = {
-      "BufferLineGoToBuffer"
-    },
     lazy = false,
     priority = 1000,
-    opts = {}
+    config = true
   },
   {
     "nvim-lualine/lualine.nvim",

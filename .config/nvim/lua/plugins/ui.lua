@@ -36,8 +36,9 @@ return {
       "nvim-telescope/telescope-ui-select.nvim"
     },
     cmd = "Telescope",
-    config = function()
-      require("telescope").setup()
+    opts = {},
+    config = function(_, opts)
+      require("telescope").setup(opts)
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("ui-select")
