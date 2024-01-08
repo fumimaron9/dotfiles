@@ -105,25 +105,23 @@ return {
       "BufReadPre",
       "BufNewFile"
     },
-    config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = {
-          "prettier", -- prettier formatter
-          "stylua", -- lua formatter
-          "eslint_d", -- js linter
-          "golangci_lint", -- go linter
-          "terraform_fmt", -- terraform formatter
-          "terraform_validate", -- terraform linter
-          "shellcheck", -- shell linter
-          "yamllint", -- yaml linter
-          "buf", -- buf formatter
-          "beautysh", -- shell formatter
-          "gofumpt", -- go formatter
-          "yamlfmt", -- yaml formatter
-          "spell", -- spell checker
-        },
-      })
-    end
+    opts = {
+      ensure_installed = {
+        "prettier", -- prettier formatter
+        "stylua", -- lua formatter
+        "eslint_d", -- js linter
+        "golangci_lint", -- go linter
+        "terraform_fmt", -- terraform formatter
+        "terraform_validate", -- terraform linter
+        "shellcheck", -- shell linter
+        "yamllint", -- yaml linter
+        "buf", -- buf formatter
+        "beautysh", -- shell formatter
+        "gofumpt", -- go formatter
+        "yamlfmt", -- yaml formatter
+        "spell", -- spell checker
+      }
+    }
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -156,10 +154,13 @@ return {
       sync_install = false,
       auto_install = true,
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = { enable = true }
     }
   },
-  { "hrsh7th/cmp-nvim-lsp", event = "LspAttach" },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    event = "LspAttach"
+  },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -269,10 +270,11 @@ return {
     },
     config = function()
       require("diaglist").init()
-
-      vim.keymap.set("n", "<leader>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>")
-      vim.keymap.set("n", "<leader>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>")
-    end
+    end,
+    keys = {
+      { "<leader>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>", desc = "open_all_diagnostics" },
+      { "<leader>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>", desc = "open_buffer_diagnostics" }
+    }
   },
   {
     "windwp/nvim-autopairs",
