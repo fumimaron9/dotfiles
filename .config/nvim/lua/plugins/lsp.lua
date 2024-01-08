@@ -10,7 +10,7 @@ return {
       "MasonLog"
     },
     build = ":MasonUpdate",
-    opts = {},
+    config = true
   },
   {
     "williamboman/mason-lspconfig.nvim",
