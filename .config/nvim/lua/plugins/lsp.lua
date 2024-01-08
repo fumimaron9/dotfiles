@@ -269,7 +269,7 @@ return {
       "BufEnter"
     },
     config = function()
-      require("diaglist").init()
+      require("diaglist").init({})
     end,
     keys = {
       { "<leader>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>", desc = "open_all_diagnostics" },
