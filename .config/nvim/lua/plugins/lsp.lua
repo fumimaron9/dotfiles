@@ -80,8 +80,19 @@ return {
           require("lspconfig")[server_name].setup({
             capabilities = require("cmp_nvim_lsp").default_capabilities(),
             on_attach = function(client)
-              -- TODO: color
-              client.server_capabilities.semanticTokensProvider = nil
+              if client.name == "gopls" then
+                if not client.server_capabilities.semanticTokensProvider then
+                  local semantic = client.config.capabilities.textDocument.semanticTokens
+                  client.server_capabilities.semanticTokensProvider = {
+                    full = true,
+                    legend = {
+                      tokenTypes = semantic.tokenTypes,
+                      tokenModifiers = semantic.tokenModifiers,
+                    },
+                    range = true,
+                  }
+                end
+              end
             end
           })
         end
@@ -129,6 +140,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    enabeld = false,
     cmd = {
       "TSInstall",
       "TSBufEnable",
@@ -153,7 +165,13 @@ return {
         "regex",
         "bash",
         "markdown",
-        "markdown_inline"
+        "markdown_inline",
+        "go",
+        "gomod",
+        "gowork",
+        "gosum",
+        "terraform",
+        "hcl"
       },
       sync_install = false,
       auto_install = true,
