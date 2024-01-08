@@ -30,19 +30,26 @@ return {
       "nvim-tree/nvim-web-devicons",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make"
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end
       },
-      "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-telescope/telescope-ui-select.nvim"
+      {
+        "nvim-telescope/telescope-file-browser.nvim",
+        config = function()
+          require("telescope").load_extension("file_browser")
+        end
+      },
+      {
+        "nvim-telescope/telescope-ui-select.nvim",
+        config = function()
+          require("telescope").load_extension("ui-select")
+        end
+      }
     },
     cmd = "Telescope",
-    opts = {},
-    config = function(_, opts)
-      require("telescope").setup(opts)
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("file_browser")
-      require("telescope").load_extension("ui-select")
-    end,
+    config = true,
     keys = function()
       local builtin = require("telescope.builtin")
       return {
@@ -99,16 +106,16 @@ return {
     end,
     opts = {
       sort = {
-        sorter = "case_sensitive",
+        sorter = "case_sensitive"
       },
       view = {
-        width = 30,
+        width = 30
       },
       renderer = {
-        group_empty = true,
+        group_empty = true
       },
       filters = {
-        dotfiles = true,
+        dotfiles = true
       },
       update_focused_file = {
         enable = true,
