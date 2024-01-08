@@ -279,12 +279,12 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {}
+    config = true
   },
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    opts = {}
+    config = true
   },
   {
     "brenoprata10/nvim-highlight-colors",
