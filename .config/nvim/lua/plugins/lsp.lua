@@ -17,7 +17,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
-      "cmp-nvim-lsp"
+      "hrsh7th/cmp-nvim-lsp"
     },
     cmd = {
       "LspInstall",
@@ -198,7 +198,7 @@ return {
       { "petertriho/cmp-git", dependencies = { "nvim-lua/plenary.nvim" }, event = "InsertEnter", opts = {} },
       { "onsails/lspkind.nvim", event = "LspAttach" },
       { "rafamadriz/friendly-snippets", event = "InsertEnter" },
-      "cmp-nvim-lsp"
+      "hrsh7th/cmp-nvim-lsp"
     },
     event = {
       "InsertEnter",
@@ -316,7 +316,5 @@ return {
     }
   }
   --"nvim-ts-autotag",
-  --"neogit",
   --"diffview.nvim",
-  --"git-messenger.vim"
 }

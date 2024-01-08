@@ -56,6 +56,28 @@ return {
     end
   },
   {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    init = function()
+      vim.api.nvim_create_autocmd('BufEnter', {
+        desc = 'makes sure any opened buffer inside a git repo will be tracked by lazygit',
+        callback = function()
+          require('lazygit.utils').project_root_dir()
+        end,
+        group = vim.api.nvim_create_augroup('Lazygit', { clear = false })
+      })
+    end,
+    config = function()
+      require('telescope').load_extension('lazygit')
+    end,
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
+      { "<leader>gG", "<cmd>Telescope lazygit<CR>", desc = "Telescope Lazygit" }
+    }
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
