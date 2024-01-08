@@ -6,4 +6,4 @@ vim.opt.termguicolors = true
 vim.o.encofing = "utf-8"
 vim.o.number = true
 
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed"
