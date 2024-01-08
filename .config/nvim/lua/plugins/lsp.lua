@@ -122,19 +122,19 @@ return {
     },
     opts = {
       ensure_installed = {
-        "prettier", -- prettier formatter
-        "stylua", -- lua formatter
-        "eslint_d", -- js linter
-        "golangci_lint", -- go linter
-        "terraform_fmt", -- terraform formatter
-        "terraform_validate", -- terraform linter
-        "shellcheck", -- shell linter
-        "yamllint", -- yaml linter
-        "buf", -- buf formatter
-        "beautysh", -- shell formatter
-        "gofumpt", -- go formatter
-        "yamlfmt", -- yaml formatter
-        "spell", -- spell checker
+        "spell",
+        "prettier",
+        "stylua",
+        "eslint_d",
+        "golangci_lint",
+        "gofumpt",
+        "terraform_fmt",
+        "terraform_validate",
+        "shellcheck",
+        "beautysh",
+        "yamllint",
+        "yamlfmt",
+        "buf"
       }
     }
   },
@@ -223,7 +223,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
