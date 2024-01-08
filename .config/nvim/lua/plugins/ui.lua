@@ -57,8 +57,9 @@ return {
         { "<leader>fg", builtin.live_grep, desc = "live_grep" },
         { "<leader>fb", builtin.buffers, desc = "buffers" },
         { "<leader>fh", builtin.help_tags, desc = "help_tags" },
-        { "<leader>pf", ":Telescope file_browser<CR>", desc = "file_browser" },
-        { "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "file_browser with path"}
+        { "<leader>gs", builtin.git_status, desc = "git_status" },
+        { "<leader>pf", "<cmd>Telescope file_browser<CR>", desc = "file_browser" },
+        { "<leader>pf", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "file_browser with path"},
       }
     end
   },
@@ -82,7 +83,8 @@ return {
     keys = {
       { "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
       { "<leader>gG", "<cmd>Telescope lazygit<CR>", desc = "Telescope Lazygit" }
-    }
+    },
+    enabled = false
   },
   {
     "nvim-tree/nvim-tree.lua",
