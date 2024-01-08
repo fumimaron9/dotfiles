@@ -48,9 +48,8 @@ return {
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-
-      vim.api.nvim_set_keymap("n", "<leader>pf", ":Telescope file_browser<CR>", { noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
+      vim.keymap.set("n", "<leader>pf", ":Telescope file_browser<CR>", { noremap = true })
+      vim.keymap.set("n", "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
     end
   },
   {
@@ -97,7 +96,10 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
-    lazy = false,
-    opts = {}
+    cmd = { "ToggleTerm" },
+    opts = {},
+    config = function()
+      vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", {})
+    end
   }
 }
