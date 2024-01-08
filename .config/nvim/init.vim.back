@@ -2,10 +2,10 @@
 " plugins configuration
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-if dein#tap('vim-rooter')
-  let g:rooter_cd_cmd="lcd"
-  let g:rooter_patterns = ['.git', '.git/', '.hg/', '.svn/']
-endif
+"if dein#tap('vim-rooter')
+"  let g:rooter_cd_cmd="lcd"
+"  let g:rooter_patterns = ['.git', '.git/', '.hg/', '.svn/']
+"endif
 
 "if dein#tap('auto-ctags.vim')
 "  let g:auto_ctags = 1
@@ -15,17 +15,18 @@ endif
 "endif
 
 " lightline
-if dein#tap('lightline.vim')
-  let g:lightline = {
-    \ 'colorscheme': 'nord',
-    \ }
-endif
+"if dein#tap('lightline.vim')
+"  let g:lightline = {
+"    \ 'colorscheme': 'nord',
+"    \ }
+"endif
 
 " editorconfig
-if dein#tap('editorconfig-vim')
-  silent! call editorconfig#ApplyHooks(a:config)
-endif
+"if dein#tap('editorconfig-vim')
+"  silent! call editorconfig#ApplyHooks(a:config)
+"endif
 
+"nordtheme/vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " autocmd
@@ -122,7 +123,7 @@ set smartindent
 """"" colorscheme
 set termguicolors
 set background=light
-colorscheme nord
+"colorscheme nord
 
 
 """"" 構文ハイライト
