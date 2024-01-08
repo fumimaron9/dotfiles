@@ -315,6 +315,9 @@ return {
       enable_tailwind = true
     }
   }
-  --"nvim-ts-autotag",
-  --"diffview.nvim",
+  --"mfussenegger/nvim-lint"
+  --"stevearc/conform.nvim"
+  --"JoosepAlviste/nvim-ts-context-commentstring",
+  --"windwp/nvim-ts-autotag",
+  --"sindrets/diffview.nvim",
 }
