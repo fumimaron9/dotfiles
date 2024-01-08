@@ -99,7 +99,7 @@ return {
     cmd = { "ToggleTerm" },
     config = true,
     keys = {
-      { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "ToggleTerm" }
+      { "<leader>tt", "<cmd>ToggleTerm<CR>", desc = "ToggleTerm" }
     }
   }
 }
