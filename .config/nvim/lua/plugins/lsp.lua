@@ -279,6 +279,11 @@ return {
     end
   },
   {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    config = true
+  },
+  {
     "onsails/diaglist.nvim",
     event = {
       "User LspDiagnosticsChanged",
