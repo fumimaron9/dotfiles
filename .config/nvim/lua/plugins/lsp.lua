@@ -24,25 +24,7 @@ return {
       "LspUninstall"
     },
     lazy = false,
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "dockerls",
-          "docker_compose_language_service",
-          "gopls",
-          "lua_ls",
-          "vtsls"
-        },
-      })
-
-      require("mason-lspconfig").setup_handlers({
-        function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = require("cmp_nvim_lsp").default_capabilities()
-          })
-        end
-      })
-
+    init = function()
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
       vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -79,7 +61,26 @@ return {
           vim.keymap.set("n", "<leader>f", function()
             vim.lsp.buf.format { async = true }
           end, opts)
-        end,
+        end
+      })
+    end,
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "dockerls",
+          "docker_compose_language_service",
+          "gopls",
+          "lua_ls",
+          "vtsls"
+        }
+      })
+
+      require("mason-lspconfig").setup_handlers({
+        function(server_name)
+          require("lspconfig")[server_name].setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities()
+          })
+        end
       })
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -88,7 +89,7 @@ return {
           virtual_text = {
             format = function(diagnostic)
               return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
-            end,
+            end
           }
         }
       )
