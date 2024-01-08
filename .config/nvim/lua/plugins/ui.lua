@@ -49,8 +49,8 @@ return {
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
-      vim.api.nvim_set_keymap("n", "<space>fb", ":Telescope file_browser<CR>", { noremap = true })
-      vim.api.nvim_set_keymap("n", "<space>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
+      vim.api.nvim_set_keymap("n", "<leader>pf", ":Telescope file_browser<CR>", { noremap = true })
+      vim.api.nvim_set_keymap("n", "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
     end
   },
   {

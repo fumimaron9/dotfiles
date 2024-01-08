@@ -247,12 +247,12 @@ return {
     config = function()
       require("diaglist").init()
 
-      vim.keymap.set("n", "<space>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>")
-      vim.keymap.set("n", "<space>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>")
+      vim.keymap.set("n", "<leader>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>")
+      vim.keymap.set("n", "<leader>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>")
     end
   },
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {}
   },
