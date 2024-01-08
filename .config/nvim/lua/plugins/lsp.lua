@@ -122,7 +122,6 @@ return {
     },
     opts = {
       ensure_installed = {
-        "spell",
         "prettier",
         "stylua",
         "eslint_d",

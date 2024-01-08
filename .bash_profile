@@ -1,4 +1,4 @@
-source $HOME/.commonrc
+source $HOME/.commonprofile
 source $HOME/.commonalias
 source $HOME/.bashrc
 

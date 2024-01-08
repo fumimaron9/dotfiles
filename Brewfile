@@ -8,7 +8,7 @@ tap "teamookla/speedtest"
 tap "ariga/tap"
 tap "jesseduffield/lazygit"
 
-
+brew "sheldon"
 brew "wget"
 brew "gcc"
 brew "cmake"

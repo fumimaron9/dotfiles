@@ -24,6 +24,59 @@ return {
     }
   },
   {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      return {
+        options = {
+          theme = "auto"
+        },
+        extensions = {
+          "lazy",
+          "man",
+          "mason",
+          "quickfix"
+        },
+        lualine_x = {
+          {
+            require("noice").api.status.message.get_hl,
+            cond = require("noice").api.status.message.has
+          },
+          {
+            require("noice").api.status.command.get,
+            cond = require("noice").api.status.command.has,
+            color = { fg = "#ff9e64" }
+          },
+          {
+            require("noice").api.status.mode.get,
+            cond = require("noice").api.status.mode.has,
+            color = { fg = "#ff9e64" }
+          },
+          {
+            require("noice").api.status.search.get,
+            cond = require("noice").api.status.search.has,
+            color = { fg = "#ff9e64" }
+          }
+        }
+      }
+    end,
+    config = function(_, opts)
+      require("lualine").setup(opts)
+      require("telescope").load_extension("noice")
+    end,
+    keys = {
+      { "<leader>nl", '<cmd>lua require("noice").cmd("last")<CR>', desc = "noice last" },
+      { "<leader>nh", '<cmd>lua require("noice").cmd("history")<CR>', desc = "noice history" },
+      { "<S-Enter>", '<cmd>lua require("noice").redirect(vim.fn.getcmdline())<CR>', mode = "c", desc = "Redirect Cmdline" },
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward" },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward"},
+    }
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",

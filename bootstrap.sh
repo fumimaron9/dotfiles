@@ -22,7 +22,7 @@ else
   echo
 fi
 
-. $DOTFILES_PATH/.commonrc
+. $DOTFILES_PATH/.commonprofile
 
 cd "$DOTFILES_PATH"
 
