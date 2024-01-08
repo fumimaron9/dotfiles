@@ -320,4 +320,5 @@ return {
   --"JoosepAlviste/nvim-ts-context-commentstring",
   --"windwp/nvim-ts-autotag",
   --"sindrets/diffview.nvim",
+  --"github/copilot.vim"
 }
