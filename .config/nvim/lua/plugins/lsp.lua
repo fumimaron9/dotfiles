@@ -27,6 +27,9 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
+          "dockerls",
+          "docker_compose_language_service",
+          "gopls",
           "lua_ls",
           "vtsls"
         },
