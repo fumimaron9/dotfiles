@@ -251,7 +251,6 @@ return {
         }
       })
 
-      -- Set configuration for specific filetype.
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
           { name = "git" }
@@ -260,8 +259,7 @@ return {
         })
       })
 
-      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
+      cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "nvim_lsp_document_symbol" }
@@ -270,8 +268,7 @@ return {
         }
       })
 
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = "path" }
@@ -292,8 +289,8 @@ return {
       require("diaglist").init({})
     end,
     keys = {
-      { "<leader>dw", "<cmd>lua require('diaglist').open_all_diagnostics()<CR>", desc = "open_all_diagnostics" },
-      { "<leader>d0", "<cmd>lua require('diaglist').open_buffer_diagnostics()<CR>", desc = "open_buffer_diagnostics" }
+      { "<leader>dw", '<cmd>lua require("diaglist").open_all_diagnostics()<CR>', desc = "open_all_diagnostics" },
+      { "<leader>d0", '<cmd>lua require("diaglist").open_buffer_diagnostics()<CR>', desc = "open_buffer_diagnostics" }
     }
   },
   {
