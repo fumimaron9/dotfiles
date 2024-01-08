@@ -3,6 +3,9 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt.termguicolors = true
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 vim.o.encofing = "utf-8"
 vim.opt.number = true
 vim.opt.clipboard = "unnamed"
