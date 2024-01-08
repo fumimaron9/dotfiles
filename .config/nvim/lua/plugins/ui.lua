@@ -94,5 +94,10 @@ return {
         end
       })
     end
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    lazy = false,
+    opts = {}
   }
 }
