@@ -30,7 +30,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+        build = "make"
       },
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
@@ -42,14 +42,17 @@ return {
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
       require("telescope").load_extension("ui-select")
-
+    end,
+    keys = function()
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-      vim.keymap.set("n", "<leader>pf", ":Telescope file_browser<CR>", { noremap = true })
-      vim.keymap.set("n", "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
+      return {
+        { "<leader>ff", builtin.find_files, desc = "find files" },
+        { "<leader>fg", builtin.live_grep, desc = "live grep" },
+        { "<leader>fb", builtin.buffers, desc = "buffers" },
+        { "<leader>fh", builtin.help_tags, desc = "help tag" },
+        { "<leader>pf", ":Telescope file_browser<CR>", desc = "file browser" },
+        { "<leader>pf", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "ssss"}
+      }
     end
   },
   {
@@ -97,9 +100,9 @@ return {
   {
     "akinsho/toggleterm.nvim",
     cmd = { "ToggleTerm" },
-    opts = {},
-    config = function()
-      vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", {})
-    end
+    config = true,
+    keys = {
+      { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "ToggleTerm" }
+    }
   }
 }
