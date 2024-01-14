@@ -10,9 +10,9 @@ if shopt | grep 'globstar' > /dev/null 2>&1; then
   shopt -s globstar
 fi
 
-if [ -d "/usr/share/git-core/contrib/completion/git-prompt.sh" ]; then
+if [ -f "/usr/share/git-core/contrib/completion/git-prompt.sh" ]; then
   source /usr/share/git-core/contrib/completion/git-prompt.sh
-elif [ -d "/usr/share/doc/git-core/contrib/completion/git-prompt.sh" ]; then
+elif [ -f "/usr/share/doc/git-core/contrib/completion/git-prompt.sh" ]; then
   source /usr/share/doc/git-core/contrib/completion/git-prompt.sh
 else
   echo "git-prompt.sh is not supported"
