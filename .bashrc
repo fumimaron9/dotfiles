@@ -10,6 +10,14 @@ if shopt | grep 'globstar' > /dev/null 2>&1; then
   shopt -s globstar
 fi
 
+if [ -d "/usr/share/git-core/contrib/completion/git-prompt.sh" ]; then
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [ -d "/usr/share/doc/git-core/contrib/completion/git-prompt.sh" ]; then
+  source /usr/share/doc/git-core/contrib/completion/git-prompt.sh
+else
+  echo "git-prompt.sh is not supported"
+fi
+
 #export PROMPT_COMMAND='__git_ps1 "\[\033[1;31m\]\u@\h\[\e[00m\] \[\e[1;34m\]\w\[\e[00m\]" " \$ "'
 export PROMPT_COMMAND='__git_ps1 "\[\033[1;36m\]\u@\h\[\e[00m\] \[\e[1;34m\]\w\[\e[00m\]" " \$ "'
 
