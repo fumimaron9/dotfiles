@@ -60,6 +60,7 @@ if [ ! $(command -v brew) ]; then
   #  eval $($HOME/.linuxbrew/bin/brew shellenv)
   #  echo
   elif [ "$(uname)" = "Linux" ]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo
   else
     echo "ERROR: Unknown OS"
