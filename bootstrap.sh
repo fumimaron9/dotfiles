@@ -47,18 +47,6 @@ if [ ! $(command -v brew) ]; then
       chsh -s "$(brew --prefix zsh)/bin/zsh"
       echo
     fi
-
-  #elif [ $(uname -r | grep -i "microsoft") ]; then
-  #  sudo apt update
-  #  sudo apt install linuxbrew-wrapper
-  #  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  #  echo
-  #elif [ "$(uname)" = "Linux" ] && [ ! $(uname -r | grep -i "microsoft") ]; then
-  #  git clone https://github.com/Homebrew/brew $HOME/.linuxbrew/Homebrew
-  #  mkdir $HOME/.linuxbrew/bin
-  #  ln -s $HOME/.linuxbrew/Homebrew/bin/brew $HOME/.linuxbrew/bin
-  #  eval $($HOME/.linuxbrew/bin/brew shellenv)
-  #  echo
   elif [ "$(uname)" = "Linux" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo
