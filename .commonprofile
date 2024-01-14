@@ -6,8 +6,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 
-export GPG_TTY=$(tty)
-
 export PATH=$HOME/.local/bin:$HOME/local/bin:$HOME/bin:/usr/local/bin:/usr/bin/:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -30,6 +28,8 @@ fi
 if [ ! -z "${TERMINAL_EMULATOR+x}" ]; then
   export EDITOR="vim -u $HOME/.vimrc_simple"
 fi
+
+export GPG_TTY=$(tty)
 
 # diff-highlight
 if [ $(command -v brew) ] && [ -d "$(brew --prefix)/share/git-core/contrib/diff-highlight" ]; then
@@ -63,5 +63,3 @@ fi
 if [ -d "$HOME/go/bin" ]; then
   export PATH="$HOME/go/bin:$PATH"
 fi
-
-
