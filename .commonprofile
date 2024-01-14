@@ -41,7 +41,7 @@ elif [ -d "$HOME/local/share/doc/git-core/contrib/diff-highlight" ]; then
 elif [ -d "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight" ]; then
   export PATH=/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight:$PATH
 elif [ -d "/usr/share/doc/git/contrib/diff-highlight" ]; then
-  export PATH=/usr/share/doc/git/contrib:$PATH
+  export PATH=/usr/share/git-core/contrib:$PATH
 else
   echo "diff-highlight is not supported"
 fi
