@@ -118,7 +118,7 @@ cask "wireshark"
 #cask "adobe-creative-cloud"
 cask "grammarly-desktop"
 cask "anki"
-cask "epic-games"
 #mas "Feedly", id: 865500966
 mas "1Password 7", id: 1333542190
 mas "Amazon Kindle", id: 302584613
+mas 'XCode', id: 497799835
