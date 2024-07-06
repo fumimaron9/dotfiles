@@ -65,6 +65,7 @@ brew "aws-nuke"
 brew "aws/tap/eks-node-viewer"
 brew "nmap"
 brew "nikto"
+brew "mise"
 #brew "gnu-getopt"
 #brew "nkf"
 #brew "redis"
@@ -119,6 +120,8 @@ cask "wireshark"
 #cask "adobe-creative-cloud"
 cask "grammarly-desktop"
 cask "anki"
+cask "chatgpt"
+cask "devtoys"
 #mas "Feedly", id: 865500966
 mas "1Password 7", id: 1333542190
 mas "Amazon Kindle", id: 302584613
