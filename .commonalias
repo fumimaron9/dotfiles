@@ -12,8 +12,5 @@ alias grep='grep -E --color --exclude="*.swp" --exclude-dir={.svn,.git}'
 
 alias tmux='tmux -2'
 
-alias activate="source $HOME/.pyenv/versions/miniconda3-latest/bin/activate"
-alias deactivate="source $HOME/.pyenv/versions/miniconda3-latest/bin/deactivate"
-
 # ij ~/Workspaces/xxx
 alias ij='open -b com.jetbrains.intellij'
