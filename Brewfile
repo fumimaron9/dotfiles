@@ -125,6 +125,7 @@ cask "grammarly-desktop"
 cask "anki"
 cask "chatgpt"
 cask "devtoys"
+cask "finch"
 #mas "Feedly", id: 865500966
 mas "1Password 7", id: 1333542190
 mas "Amazon Kindle", id: 302584613
