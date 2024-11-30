@@ -81,6 +81,7 @@ zinit snippet "PZT::modules/history/init.zsh"
 setopt hist_ignore_space
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
+setopt share_history
 
 
 ########## completions
