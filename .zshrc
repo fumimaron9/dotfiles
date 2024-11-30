@@ -79,6 +79,8 @@ bindkey "^D" bash-ctrl-d
 zinit snippet "PZT::modules/environment/init.zsh"
 zinit snippet "PZT::modules/history/init.zsh"
 setopt hist_ignore_space
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
 
 
 ########## completions
