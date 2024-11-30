@@ -134,7 +134,7 @@ zinit light "starship/starship"
 ########## fuzzy finder
 zinit ice wait lucid \
   as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv target/release/sk bin" atpull"%atclone" \
+  atclone"cargo build --release; mkdir -p bin; mv -f target/release/sk bin" atpull"%atclone" \
   pick"bin/*" multisrc"shell/{completion,key-bindings}.zsh" \
   atload'export SKIM_DEFAULT_OPTIONS="--layout=reverse"'
 zinit light "lotabout/skim"
@@ -161,15 +161,15 @@ zinit light "junegunn/fzf"
 
 zinit ice wait lucid \
   as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv target/release/zoxide bin" atpull"%atclone" \
+  atclone"cargo build --release; mkdir -p bin; mv -f target/release/zoxide bin" atpull"%atclone" \
   pick"bin/*" \
-  atload'eval "$(zoxide init zsh)"'
+  atload'eval "$(zoxide init --cmd cd zsh)"'
 zinit light "ajeetdsouza/zoxide"
 
 
 zinit ice wait lucid \
   as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv target/release/fd bin" atpull"%atclone" \
+  atclone"cargo build --release; mkdir -p bin; mv -f target/release/fd bin" atpull"%atclone" \
   pick"bin/*"
 zinit light "sharkdp/fd"
 

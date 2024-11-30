@@ -26,7 +26,7 @@ fi
 
 #if [[ -v TERMINAL_EMULATOR ]]; then
 if [ ! -z "${TERMINAL_EMULATOR+x}" ]; then
-  export EDITOR="vim -u $HOME/.vimrc_simple"
+  export EDITOR="nvim -u /dev/null"
 fi
 
 export GPG_TTY=$(tty)
