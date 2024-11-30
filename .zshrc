@@ -159,12 +159,12 @@ zinit ice wait'0c' lucid \
 zinit light "junegunn/fzf"
 
 
-zinit ice wait lucid \
-  as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv -f target/release/zoxide bin" atpull"%atclone" \
-  pick"bin/*" \
-  atload'eval "$(zoxide init --cmd cd zsh)"'
-zinit light "ajeetdsouza/zoxide"
+#zinit ice wait lucid \
+#  as"program" \
+#  atclone"cargo build --release; mkdir -p bin; mv -f target/release/zoxide bin" atpull"%atclone" \
+#  pick"bin/*" \
+#  atload'eval "$(zoxide init --cmd cd zsh)"'
+#zinit light "ajeetdsouza/zoxide"
 
 
 zinit ice wait lucid \
