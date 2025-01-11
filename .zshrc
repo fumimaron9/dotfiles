@@ -164,7 +164,7 @@ zinit ice wait lucid \
   atclone"cargo build --release; mkdir -p bin; mv -f target/release/zoxide bin" atpull"%atclone" \
   pick"bin/*" \
   atinit'unalias zi' \
-  atload'eval "$(zoxide init --cmd cd zsh)";alias cd=cdi'
+  atload'eval "$(zoxide init --cmd cd zsh)"'
 zinit light "ajeetdsouza/zoxide"
 
 
