@@ -19,6 +19,13 @@ chezmoi init fumimaron9/dotfiles
 chezmoi data
 ```
 
+### pull repository
+
+```bash
+chezmoi status
+chezmoi update
+```
+
 ### testing template
 
 ```bash
