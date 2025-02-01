@@ -1,6 +1,5 @@
 {{ if eq .chezmoi.os "windows" -}}
-Write-Output "Hello World."
-
 # winget configure test configuration.dsc.yaml
-winget configure $HOME\.local\share\chezmoi\configuration.dsc.yaml --accept-configuration-agreements
+
+winget configure $HOME\.local\share\chezmoi\home\configuration.dsc.yaml --accept-configuration-agreements
 {{- end }}
