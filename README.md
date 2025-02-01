@@ -31,7 +31,7 @@ chezmoi update
 ```bash
 chezmoi execute-template '{{ .chezmoi.os}}'
 
-chezmoi execute-template < dot_zshrc.tmpl
+chezmoi execute-template < ~/.local/share/chezmoi/home/.chezmoi.toml.tmpl
 ```
 
 ```powershell
