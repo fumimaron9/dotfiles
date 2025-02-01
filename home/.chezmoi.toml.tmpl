@@ -1,0 +1,24 @@
+{{ if eq .chezmoi.os "windows" }}
+[cd]
+    command = "pwsh"
+[git]
+    autoAdd = true
+    autoCommit = false
+    autoPush = false
+[edit]
+    command = "nvim"
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ `{{ .Destination }}` }}", "{{ `{{ .Source }}` }}", "{{ `{{ .Target }}` }}"]
+{{ else if eq .chezmoi.os "darwin" }}
+# darwin
+{{ else if eq .chezmoi.os "linux" }}
+# linux
+{{ else }}
+# other operating system
+{{ end }}
+
+{{- $email := promptStringOnce . "email" "Email address" -}}
+[data]
+    userName = "fumimaron9"
+    email = {{ $email | quote }}
