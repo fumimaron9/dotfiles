@@ -7,13 +7,6 @@
 "  let g:rooter_patterns = ['.git', '.git/', '.hg/', '.svn/']
 "endif
 
-"if dein#tap('auto-ctags.vim')
-"  let g:auto_ctags = 1
-"  let g:auto_ctags_directory_list = ['.git', '.svn']
-"  let g:auto_ctags_tags_name = 'tags'
-"  let g:auto_ctags_tags_args = '--tag-relative=yes --recurse --sort=yes'
-"endif
-
 " lightline
 "if dein#tap('lightline.vim')
 "  let g:lightline = {
@@ -79,11 +72,6 @@ set shell=$SHELL
 
 " インサートモード時にバックスペースを使う
 set backspace=indent,eol,start
-
-""""" ctags
-if has('path_extra')
-  set tags+=.git/tags;
-endif
 
 """"" encode & line
 set termencoding=utf-8

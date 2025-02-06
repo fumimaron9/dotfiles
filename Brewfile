@@ -74,7 +74,6 @@ brew "microsoft/msstore-cli/msstore-cli"
 #brew "nkf"
 #brew "redis"
 #brew "tmux"
-#brew "universal-ctags"
 #brew "httpie"
 #brew "mosh"
 
