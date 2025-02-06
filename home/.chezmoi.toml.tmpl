@@ -1,3 +1,5 @@
+umask = 0o022
+
 {{ if eq .chezmoi.os "windows" }}
 [cd]
     command = "pwsh"
