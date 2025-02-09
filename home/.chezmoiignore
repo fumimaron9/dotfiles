@@ -1,4 +1,5 @@
 #{{ if ne .chezmoi.os "windows" }}
+*.ps1
 *.dsc.yaml
 AppData/**
 Documents/PowerShell/**
