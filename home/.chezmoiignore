@@ -5,5 +5,5 @@ Documents/PowerShell/**
 #{{ end }}
 
 #{{ if ne .chezmoi.os "darwin" }}
-dot_config/iterm2/**
+.config/iterm2/**
 #{{ end }}
