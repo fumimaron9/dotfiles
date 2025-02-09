@@ -3,3 +3,7 @@
 AppData/**
 Documents/PowerShell/**
 #{{ end }}
+
+#{{ if ne .chezmoi.os "darwin" }}
+dot_config/iterm2/**
+#{{ end }}

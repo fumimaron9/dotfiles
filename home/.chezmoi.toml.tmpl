@@ -1,6 +1,3 @@
-{{ if eq .chezmoi.os "windows" }}
-[cd]
-    command = "pwsh"
 [git]
     autoAdd = true
     autoCommit = false
@@ -10,6 +7,10 @@
 [merge]
     command = "nvim"
     args = ["-d", "{{ `{{ .Destination }}` }}", "{{ `{{ .Source }}` }}", "{{ `{{ .Target }}` }}"]
+
+{{ if eq .chezmoi.os "windows" }}
+[cd]
+    command = "pwsh"
 {{ else if eq .chezmoi.os "darwin" }}
 # darwin
 {{ else if eq .chezmoi.os "linux" }}
