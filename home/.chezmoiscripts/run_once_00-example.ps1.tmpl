@@ -1,0 +1,3 @@
+$DOTFILES = "$env:USERPROFILE\.dotfiles"
+
+New-Item -Force -ItemType SymbolicLink -Path $env:LOCALAPPDATA\nvim -Value $DOTFILES\.config\nvim
