@@ -1,38 +1,14 @@
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-
-
-
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
-Plug 'lifepillar/vim-solarized8'
-Plug 'junegunn/fzf.vim'
-call plug#end()
-
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ }
-
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 " configuration
 """""""""""""""""""""""""""""""""""""""""""""""""
+
+set nocompatible
 
 " viminfo change location
 set viminfo+=n~/.viminfo
 
 """"" filetype
 filetype plugin indent on
-
-" 使用するshellを設定
-set shell=$SHELL
 
 " インサートモード時にバックスペースを使う
 set backspace=indent,eol,start
@@ -137,15 +113,12 @@ set nobomb
 set fileencodings=utf-8,cp932,shift-jis,euc-jp,iso-2022-jp
 set fileformats=unix,dos
 
-
 """"" clipbord
 set clipboard=unnamed
-
 
 """"" search
 set hlsearch " 検索結果強調-:nohで解除
 set incsearch " インクリメンタルサーチを有効
-
 
 " screenでvimホイール有効化
 " マウス有効化
@@ -154,63 +127,27 @@ if has('mouse')
   set ttymouse=xterm2
 endif
 
-
 " スワップを作らない
-"set noswapfile
-
+set noswapfile
 
 " バックアップを取らない
 set nobackup
 
-
 " カーソルを行頭、行末でとまらないようにする
 set whichwrap=b,s,h,s,<,>,[,]
-
 
 " escの反応を素早くする
 set timeout timeoutlen=1000 ttimeoutlen=75
 
-
 " vimコマンド補完の強化
 set wildmenu
 set wildmode=list:full
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""" session
-augroup SessionManage
-  if argc() == 0 && !&readonly
-    let s:last_session = s:cache_home . '/session.vim'
-
-    autocmd VimLeave *
-    \ if &ft != 'git' && &ft != 'gitcommit' |
-    \   exe 'mksession! ' . s:last_session |
-    \ endif
-
-    if filereadable(s:last_session)
-      autocmd VimEnter * nested
-      \ if &ft != 'git' && &ft != 'gitcommit' |
-      \   exe 'source ' . s:last_session |
-      \ endif
-    endif
-  endif
-augroup END
-
-" help
-"set keywordprg=:help " Open Vim internal help by K command
 
 " 貼り付け時のコメントでるのを改善
 autocmd FileType * set formatoptions-=ro
 
 " insetモードから抜けるときにnopaste
 autocmd InsertLeave * set nopaste
-
-" for webpack --watch
-autocmd BufNewFile,BufReadPre *.js set backupcopy=yes
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " key mapping
