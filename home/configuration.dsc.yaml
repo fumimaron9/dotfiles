@@ -45,3 +45,4 @@ properties:
       settings:
         id: Git.Git
         source: winget
+

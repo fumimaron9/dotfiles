@@ -1,10 +1,10 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -18,7 +18,7 @@
             "keys": "ctrl+v"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -36,16 +36,16 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
+    "profiles":
     {
         "defaults": {},
-        "list": 
+        "list":
         [
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
@@ -66,6 +66,10 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
+                "font":
+                {
+                    "face": "JetBrainsMono Nerd Font"
+                },
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
