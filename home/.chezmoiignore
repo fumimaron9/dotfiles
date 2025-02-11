@@ -7,6 +7,7 @@ Documents/PowerShell/**
 
 #{{ if ne .chezmoi.os "darwin" }}
 .config/iterm2/**
+Library/**
 #{{ end }}
 
 #{{ if eq .chezmoi.os "windows" }}
