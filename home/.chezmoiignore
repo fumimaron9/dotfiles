@@ -8,3 +8,17 @@ Documents/PowerShell/**
 #{{ if ne .chezmoi.os "darwin" }}
 .config/iterm2/**
 #{{ end }}
+
+#{{ if eq .chezmoi.os "windows" }}
+.bash_profile
+.bashrc
+.commonalias
+.commonprofile
+.dir_colors
+.inputrc
+.tmux.conf
+.zprofile
+.zshrc
+#{{ end }}
+
+.rpmmacros
