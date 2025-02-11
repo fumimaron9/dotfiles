@@ -7,5 +7,3 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 sudo config --enable normal
-
-New-Item -ItemType SymbolicLink -Force -Path $env:LOCALAPPDATA\nvim -Value $env:HOMEPATH/.config/nvim
