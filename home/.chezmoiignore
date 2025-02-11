@@ -19,6 +19,7 @@ Documents/PowerShell/**
 .tmux.conf
 .zprofile
 .zshrc
+Brewfile
 #{{ end }}
 
 .rpmmacros
