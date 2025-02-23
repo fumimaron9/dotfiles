@@ -1,6 +1,7 @@
 vim.o.encoding = "utf-8"
 vim.o.number = true
 vim.o.termguicolors = true
+vim.o.clipboard = 'unnamedplus'
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
