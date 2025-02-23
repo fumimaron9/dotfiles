@@ -33,7 +33,7 @@ autoload -Uz "add-zsh-hook"
 add-zsh-hook "precmd" "precmd_set_tab_title"
 
 
-########## bindkeys
+########## bindkeys vi
 bindkey -v
 bindkey -M viins '\er' history-incremental-pattern-search-forward
 bindkey -M viins '^?'  backward-delete-char
@@ -51,6 +51,7 @@ bindkey -M viins '^R'  history-incremental-pattern-search-backward
 bindkey -M viins '^U'  backward-kill-line
 bindkey -M viins '^W'  backward-kill-word
 bindkey -M viins '^Y'  yank
+
 
 # bash like ctrl-d wrapper for IGNOREEOF
 setopt ignoreeof
@@ -90,6 +91,7 @@ zinit light "zsh-users/zsh-completions"
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+zmodload zsh/complist
 ## awscli
 complete -C $(brew --prefix awscli)/bin/aws_completer aws
 ## gcloud
@@ -100,6 +102,11 @@ source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/compl
 
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+########## bindkeys menuselect
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+
 
 
 ########## autosuggestions
