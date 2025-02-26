@@ -20,6 +20,7 @@ Library/**
 .tmux.conf
 .zprofile
 .zshrc
+.config/sheldon
 Brewfile
 #{{ end }}
 
