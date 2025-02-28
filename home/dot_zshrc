@@ -70,6 +70,9 @@ setopt share_history
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 zmodload zsh/complist
+
+zstyle ":completion:*:commands" rehash 1
+
 ## awscli
 complete -C $(brew --prefix awscli)/bin/aws_completer aws
 ## gcloud
