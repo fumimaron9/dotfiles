@@ -12,6 +12,8 @@ dotfiles
 ### initial
 
 ```bash
+brew doctor
+
 chezmoi doctor
 
 chezmoi init fumimaron9/dotfiles
