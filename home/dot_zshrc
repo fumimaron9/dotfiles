@@ -138,15 +138,6 @@ zinit light "trapd00r/LS_COLORS"
 # zinit light "b4b4r07/enhancd"
 
 
-zinit ice wait lucid \
-  as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv -f target/release/zoxide bin" atpull"%atclone" \
-  pick"bin/*" \
-  atinit'unalias zi' \
-  atload'eval "$(zoxide init --cmd cd zsh)"'
-zinit light "ajeetdsouza/zoxide"
-
-
 
 
 
