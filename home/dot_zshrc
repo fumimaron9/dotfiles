@@ -130,15 +130,6 @@ zinit ice wait lucid \
 zinit light "trapd00r/LS_COLORS"
 
 
-########## fuzzy finder
-zinit ice wait lucid \
-  as"program" \
-  atclone"cargo build --release; mkdir -p bin; mv -f target/release/sk bin" atpull"%atclone" \
-  pick"bin/*" multisrc"shell/{completion,key-bindings}.zsh" \
-  atload'export SKIM_DEFAULT_OPTIONS="--layout=reverse"'
-zinit light "lotabout/skim"
-
-
 ########## cd
 # dead from zsh 5.9
 # zinit ice wait lucid \

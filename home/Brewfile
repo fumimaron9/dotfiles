@@ -11,6 +11,7 @@ tap "microsoft/msstore-cli"
 
 brew "sheldon"
 brew "starship"
+brew "sk"
 brew "wget"
 brew "gcc"
 brew "cmake"
