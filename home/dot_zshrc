@@ -130,14 +130,6 @@ zinit ice wait lucid \
 zinit light "trapd00r/LS_COLORS"
 
 
-########## cd
-# dead from zsh 5.9
-# zinit ice wait lucid \
-#   pick"init.sh" \
-#   atload"ENHANCD_FILTER=sk:fzf:cd; export ENHANCD_FILTER"
-# zinit light "b4b4r07/enhancd"
-
-
 
 
 
