@@ -65,3 +65,5 @@ if [ -d "$HOME/go/bin" ]; then
 fi
 
 eval "$(`brew --prefix`/bin/mise activate zsh)"
+
+eval "$(sheldon source)"

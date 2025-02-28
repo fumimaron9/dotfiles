@@ -121,17 +121,12 @@ zinit ice wait lucid \
 zinit light "zdharma-continuum/fast-syntax-highlighting"
 
 
-########## directory
-zinit ice wait lucid \
-  atclone"dircolors -b LS_COLORS > c.zsh" atpull"%atclone" \
-  pick"c.zsh" \
-  nocompile"!" \
-  atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"'
-zinit light "trapd00r/LS_COLORS"
 
 
 
 
+eval "$(`brew --prefix coreutils`/libexec/gnubin/dircolors $XDG_DATA_HOME/sheldon/repos/github.com/nordtheme/dircolors/src/dir_colors)"
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 
 export SKIM_DEFAULT_OPTIONS="--layout=reverse"
 source <(`brew --prefix`/bin/fzf --zsh)
