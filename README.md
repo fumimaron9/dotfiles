@@ -17,6 +17,9 @@ chezmoi doctor
 chezmoi init fumimaron9/dotfiles
 
 chezmoi data
+
+sheldon lock
+sheldon lock --update
 ```
 
 ### pull repository
