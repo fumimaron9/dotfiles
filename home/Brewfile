@@ -10,6 +10,7 @@ tap "jesseduffield/lazygit"
 tap "microsoft/msstore-cli"
 
 brew "sheldon"
+brew "starship"
 brew "wget"
 brew "gcc"
 brew "cmake"
