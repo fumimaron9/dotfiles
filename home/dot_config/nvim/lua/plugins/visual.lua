@@ -1,14 +1,11 @@
 return {
   {
-    "ellisonleao/gruvbox.nvim",
+    "nordtheme/vim",
     lazy = false,
     priority = 1000,
     opts = {},
-    config = function (_, opts)
-      require("gruvbox").setup(opts)
-
-      vim.opt.background = "dark"
-      vim.cmd([[colorscheme gruvbox]])
+    config = function ()
+      vim.cmd([[colorscheme nord]])
     end,
   },
   {
