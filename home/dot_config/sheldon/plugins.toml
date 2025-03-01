@@ -35,7 +35,7 @@ apply = ["defer"]
 [plugins.dircolors]
 github = "nordtheme/dircolors"
 
-[plugins.init]
+[plugins.profile]
 inline = """
 eval "$(`brew --prefix coreutils`/libexec/gnubin/dircolors $XDG_DATA_HOME/sheldon/repos/github.com/nordtheme/dircolors/src/dir_colors)"
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
