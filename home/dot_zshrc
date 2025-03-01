@@ -71,7 +71,6 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 zmodload zsh/complist
 
-zstyle ":completion:*:commands" rehash 1
 
 ## awscli
 complete -C $(brew --prefix awscli)/bin/aws_completer aws
@@ -80,6 +79,7 @@ source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/compl
 
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ":completion:*:commands" rehash 1
 
 ########## bindkeys menuselect
 bindkey -M menuselect '^[[Z' reverse-menu-complete
@@ -87,9 +87,6 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 
 
-
-eval "$(`brew --prefix coreutils`/libexec/gnubin/dircolors $XDG_DATA_HOME/sheldon/repos/github.com/nordtheme/dircolors/src/dir_colors)"
-zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 
 source <(`brew --prefix`/bin/fzf --zsh)
 eval "$(`brew --prefix`/bin/starship init zsh)"

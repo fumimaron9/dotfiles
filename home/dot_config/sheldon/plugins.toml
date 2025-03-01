@@ -17,11 +17,6 @@ defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file 
 
 [plugins]
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
-
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
@@ -39,3 +34,9 @@ apply = ["defer"]
 
 [plugins.dircolors]
 github = "nordtheme/dircolors"
+
+[plugins.init]
+inline = """
+eval "$(`brew --prefix coreutils`/libexec/gnubin/dircolors $XDG_DATA_HOME/sheldon/repos/github.com/nordtheme/dircolors/src/dir_colors)"
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+"""
