@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "claude_code": {
+      "command": "/Users/fumimaron9/.local/share/mise/installs/npm-anthropic-ai-claude-code/0.2.53/bin/claude",
+      "args": ["mcp", "serve"],
+      "env": {}
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/fumimaron9/Desktop",
+        "/Users/fumimaron9/Downloads"
+      ]
+    }
+  }
+}
