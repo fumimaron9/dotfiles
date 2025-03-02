@@ -1,0 +1,57 @@
+﻿{{ if eq .chezmoi.os "windows" -}}
+
+
+
+
+Write-Host "=== デスクトップPC用 電源設定を適用中 (chezmoi) ==="
+
+# 高速スタートアップを無効化
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name HiberbootEnabled -Value 0
+
+# 休止状態を無効化
+powercfg -h off
+
+# スリープを有効化（30分でスリープ）
+powercfg -change -standby-timeout-ac 30
+powercfg -change -standby-timeout-dc 0
+
+# ディスプレイ電源を10分でオフ
+powercfg -change -monitor-timeout-ac 15
+
+Write-Host "=== 電源設定の適用完了！再起動で反映されます ==="
+
+
+
+# --- タスクバーのウィジェットを無効化（グループポリシー相当） ---
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Force | Out-Null
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
+
+
+
+# --- スタートの「おすすめ（推奨）」/ 最近の項目 / ジャンプリスト をオフ ---
+
+# ① ジャンプリスト/タスクバー/スタートで最近使った項目を保存・表示しない
+New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs"  -Type DWord -Value 0
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackProgs" -Type DWord -Value 0
+
+# ② スタートの「おすすめ（推奨）」系を無効化（ビルドによっては両方必要）
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_IrisRecommendations" -Type DWord -Value 0
+New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Start" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Start" -Name "ShowRecentList" -Type DWord -Value 0
+
+# （任意）存在する場合のみ設定（将来ビルド用）
+try { Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Start" -Name "ShowRecommendations" -Type DWord -Value 0 -ErrorAction Stop } catch {}
+try { Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Start" -Name "HideRecommendedSection" -Type DWord -Value 1 -ErrorAction Stop } catch {}
+
+
+# --- スタートメニューのレイアウトを「さらにピン留めを表示」に変更 ---
+New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
+
+
+Stop-Process -Name explorer -Force
+Start-Process explorer
+
+
+{{ end -}}

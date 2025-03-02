@@ -1,0 +1,13 @@
+min_version: 2.0.0
+assert_lefthook_installed: true
+
+post-checkout:
+  parallel: true
+  jobs:
+    - name: Sync hooks
+      run: lefthook install
+
+pre-commit:
+  jobs:
+    - name: Check secrets
+      run: gitleaks git --pre-commit --redact --staged --verbose

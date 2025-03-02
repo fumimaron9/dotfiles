@@ -1,0 +1,26 @@
+[git]
+    autoAdd = true
+    autoCommit = false
+    autoPush = false
+[edit]
+    command = "nvim"
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ `{{ .Destination }}` }}", "{{ `{{ .Source }}` }}", "{{ `{{ .Target }}` }}"]
+{{ if eq .chezmoi.os "windows" -}}
+[cd]
+    command = "pwsh"
+{{ else if eq .chezmoi.os "darwin" -}}
+[cd]
+    command = "zsh"
+    args = "--login"
+{{ else -}}
+[cd]
+    command = "bash"
+    args = "--login"
+{{ end -}}
+
+{{ $email := promptStringOnce . "email" "Email address" -}}
+[data]
+    userName = "fumimaron9"
+    email = {{ $email | quote }}

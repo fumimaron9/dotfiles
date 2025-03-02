@@ -1,0 +1,148 @@
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "detailed"
+#model_context_window = 1000000
+#model_auto_compact_token_limit = 900000
+#service_tier = "fast"
+personality = "pragmatic"
+#approval_policy = "untrusted"
+approval_policy = "on-request"
+#sandbox_mode = "read-only"
+sandbox_mode = "workspace-write"
+#default_permissions = ":read-only"
+default_permissions = ":workspace"
+
+notify = ["{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"bash\",\"-lc\",\"afplay \\/System\\/Library\\/Sounds\\/Ping.aiff\"]"]
+
+file_opener = "vscode"
+hide_agent_reasoning = false
+show_raw_agent_reasoning = true
+
+web_search = "cached"
+
+#[agents]
+#max_threads = 12
+#max_depth = 2
+
+[sandbox_workspace_write]
+network_access = false
+writable_roots = []
+
+[shell_environment_policy]
+
+
+[tui]
+show_tooltips = false
+status_line = ["model-with-reasoning", "context-remaining", "five-hour-limit", "weekly-limit", "used-tokens", "current-dir", "git-branch", "fast-mode"]
+terminal_title = ["spinner", "project", "task-progress", "status", "thread"]
+
+[notice]
+#suppress_unstable_features_warning = true
+hide_rate_limit_model_nudge = true
+
+[features]
+voice_transcription = true
+unified_exec = true
+shell_snapshot = true
+multi_agent = true
+js_repl = false
+memories = false
+chronicle = false
+
+[mcp_servers]
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+http_headers = { "CONTEXT7_API_KEY" = "{{ onepasswordRead "op://Personal/context7 api key/credential" }}" }
+enabled = false
+
+[mcp_servers.aws-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp", "--metadata", "AWS_REGION=us-west-2"]
+startup_timeout_sec = 10
+enabled = false
+
+[mcp_servers.eks-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://eks-mcp.us-west-2.api.aws/mcp", "--service", "eks-mcp", "--profile", "f9-practice"]
+startup_timeout_sec = 10
+enabled = false
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "{{ .chezmoi.homeDir }}/.codex"
+CODEX_HOME = "{{ .chezmoi.homeDir }}/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "{{ onepasswordRead "op://Personal/Codex CLI/NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S" }}"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.611.62324"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+
+[model_providers]
+
+[projects]
+
+[projects."{{ .chezmoi.workingTree }}"]
+trust_level = "trusted"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-06-18T06:48:37Z"
+source_type = "local"
+source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-06-15T23:37:41Z"
+source_type = "local"
+source = "{{ .chezmoi.homeDir }}/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."slack@openai-curated"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[desktop]
+ambient-suggestions-enabled = false
+
+[desktop.open-in-target-preferences]
+global = "ghostty"
+
+[desktop.open-in-target-preferences.perPath]
+"{{ .chezmoi.homeDir }}/Documents/New project" = "ghostty"

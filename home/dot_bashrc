@@ -1,0 +1,76 @@
+source $XDG_CONFIG_HOME/rc/paths
+source $XDG_CONFIG_HOME/rc/aliases
+
+export SHELL=`which bash`
+
+if shopt | grep 'direxpand' > /dev/null 2>&1; then
+  shopt -s direxpand
+fi
+
+if shopt | grep 'globstar' > /dev/null 2>&1; then
+  shopt -s globstar
+fi
+
+if [ -f "$(brew --prefix)/etc/bash_completion.d/git-prompt.sh" ]; then
+  source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+elif [ -f "/usr/share/git-core/contrib/completion/git-prompt.sh" ]; then
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [ -f "/usr/share/doc/git-core/contrib/completion/git-prompt.sh" ]; then
+  source /usr/share/doc/git-core/contrib/completion/git-prompt.sh
+else
+  echo "git-prompt.sh is not supported"
+fi
+
+#export PROMPT_COMMAND='__git_ps1 "\[\033[1;31m\]\u@\h\[\e[00m\] \[\e[1;34m\]\w\[\e[00m\]" " \$ "'
+export PROMPT_COMMAND='__git_ps1 "\[\033[1;36m\]\u@\h\[\e[00m\] \[\e[1;34m\]\w\[\e[00m\]" " \$ "'
+
+#export PS1='\[\e[01;31m\]\u@\h\[\e[00m\] \[\e[01;34m\]\w\[\e[00m\] \$ '
+export PS1='\[\e[01;36m\]\u@\h\[\e[00m\] \[\e[01;34m\]\w\[\e[00m\] \$ '
+
+# PROMPT_COMMAND
+# example:
+#   export PROMPT_COMMAND='__git_ps1 "\u@\h:\w" " \$ "'
+#
+# user: \u
+# host: \h
+# dir:  \w
+#
+# color
+# red:    \[\033[1;31m\]
+# blue:   \[\033[1;36m\]
+# kaizyo: \[\e[00m\]
+
+
+#if [ ${dev} -eq 1 ]; then
+#  export PROMPT_COMMAND='__git_ps1 "\[\033[1;36m\]\u@\h\[\e[00m\] \[\e[1;34m\]\w\[\e[00m\]" " \$ "'
+#  export PS1='\[\e[01;36m\]\u@\h\[\e[00m\] \[\e[01;34m\]\w\[\e[00m\] \$ '
+#fi
+
+
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWCOLORHINTS=1
+export GIT_PS1_DESCRIBE_STYLE="branch"
+
+
+
+if [ $(command -v brew) ] && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+  source "$(brew --prefix)/etc/bash_completion"
+elif [ -f "$HOME/local/share/bash-completion/bash_completion" ]; then
+  source "$HOME/local/share/bash-completion/bash_completion"
+elif [ -f "/etc/bash_completion" ]; then
+  source "/etc/bash_completion"
+fi
+
+
+if [ $(command -v brew) ] && [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ]; then
+  source "$(brew --prefix)/etc/bash_completion.d/git-completion.bash"
+elif [ -f "$HOME/local/share/doc/git-core/contrib/completion/git-completion.bash" ]; then
+  source "$HOME/local/share/doc/git-core/contrib/completion/git-completion.bash"
+elif [ -f "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/completion/git-completion.bash" ]; then
+  source "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/completion/git-completion.bash"
+fi
+

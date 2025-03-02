@@ -1,0 +1,49 @@
+export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+
+if [[ "$(uname)" == "Darwin" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  if [[ -z "$HOMEBREW_BREW_FILE" ]]; then
+    export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH
+    export MANPATH=$(brew --prefix)/opt/coreutils/libexec/gnuman:$(brew --prefix)/opt/gnu-sed/libexec/gnuman:$MANPATH
+  fi
+elif [[ "$(uname -r)" == *microsoft* ]]; then
+  export PATH="$(echo "$PATH" | sed -r -e 's;:/mnt/[^:]+;;g')"
+elif [[ "$(uname)" == "Linux" ]]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
+if [ $(command -v nvim) ]; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
+#if [[ -v TERMINAL_EMULATOR ]]; then
+if [ ! -z "${TERMINAL_EMULATOR+x}" ]; then
+  export EDITOR="nvim -u /dev/null"
+fi
+
+export GPG_TTY=$(tty)
+
+# diff-highlight
+if [ $(command -v brew) ] && [ -d "$(brew --prefix)/share/git-core/contrib/diff-highlight" ]; then
+  export PATH=$(brew --prefix)/share/git-core/contrib/diff-highlight:$PATH
+elif [ -d "$HOME/local/share/doc/git-core/contrib/diff-highlight" ]; then
+  export PATH=$HOME/local/share/doc/git-core/contrib/diff-highlight:$PATH
+elif [ -d "/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight" ]; then
+  export PATH=/usr/share/doc/git-$(git version | cut -d' ' -f3)/contrib/diff-highlight:$PATH
+elif [ -d "/usr/share/doc/git/contrib/diff-highlight" ]; then
+  export PATH=/usr/share/git-core/contrib:$PATH
+else
+  echo "diff-highlight is not supported"
+fi
+
+if [ -f "$HOME/.config/op/plugins.sh" ]; then
+  source $HOME/.config/op/plugins.sh
+fi
+
+if [ $(command -v aws-vault) ]; then
+  export AWS_VAULT_BACKEND=op-desktop
+  export AWS_VAULT_OP_VAULT_ID={{ (output "op" "vault" "get" "Personal" "--format" "json" | fromJson).id }}
+  export AWS_VAULT_OP_DESKTOP_ACCOUNT_ID={{ (index (output "op" "account" "list" "--format" "json" | fromJson) 0).account_uuid }}
+fi

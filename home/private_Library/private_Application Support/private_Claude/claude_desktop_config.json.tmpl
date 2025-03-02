@@ -1,0 +1,114 @@
+{
+  "mcpServers": {
+    "claude_code": {
+      "command": "mise",
+      "args": ["exec", "--", "claude", "mcp", "serve"],
+      "env": {}
+    },
+    "awslabs.core-mcp-server": {
+      "command": "mise",
+      "args": ["exec", "--", "uvx", "awslabs.core-mcp-server"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "MCP_SETTINGS_PATH": "path to your mcp settings file"
+      }
+    },
+    "awslabs.nova-canvas-mcp-server": {
+      "command": "mise",
+      "args": ["exec", "--", "uvx", "awslabs.nova-canvas-mcp-server"],
+      "env": {
+        "AWS_PROFILE": "f9-practice",
+        "AWS_REGION": "us-west-2",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "awslabs.bedrock-kb-retrieval-mcp-server": {
+      "command": "mise",
+      "args": ["exec", "--", "uvx", "awslabs.bedrock-kb-retrieval-mcp-server"],
+      "env": {
+        "AWS_PROFILE": "f9-practice",
+        "AWS_REGION": "us-west-2",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "awslabs.aws-pricing-mcp-server": {
+      "command": "mise",
+      "args": ["exec", "--", "uvx", "awslabs.aws-pricing-mcp-server"],
+      "env": {
+        "AWS_PROFILE": "f9-practice",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "awslabs.aws-documentation-mcp-server": {
+      "command": "mise",
+      "args": ["exec", "--", "uvx", "awslabs.aws-documentation-mcp-server"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "awslabs.aws-diagram-mcp-server": {
+      "command": "mise",
+      "args": ["exec" , "--", "uvx", "awslabs.aws-diagram-mcp-server"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "awslabs.terraform-mcp-server": {
+       "command": "mise",
+       "args": ["exec", "--", "uvx", "awslabs.terraform-mcp-server@latest"],
+       "env": {
+         "FASTMCP_LOG_LEVEL": "ERROR"
+       },
+       "disabled": false,
+       "autoApprove": []
+     },
+    "notionApi": {
+      "command": "mise",
+      "args": ["exec", "--", "npx", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer {{ onepasswordRead "op://Personal/Notion Internal Integration Secret/secret" }}\", \"Notion-Version\": \"2022-06-28\" }"
+      }
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{{ onepasswordRead "op://Personal/GitHub Personal Access Token/token" }}"
+      }
+    },
+    "playwright": {
+      "command": "mise",
+      "args": ["exec", "--", "npx", "@playwright/mcp"]
+    },
+    "grafana": {
+      "command": "mise",
+      "args": ["exec", "--", "mcp-grafana"],
+      "env": {
+        "GRAFANA_URL": "http://localhost:3000",
+        "GRAFANA_API_KEY": ""
+      }
+    },
+    "filesystem": {
+      "command": "mise",
+      "args": [
+        "exec",
+        "--",
+        "npx",
+        "@modelcontextprotocol/server-filesystem",
+        "{{ .chezmoi.homeDir }}/Desktop",
+        "{{ .chezmoi.homeDir }}/Downloads"
+      ]
+    }
+  }
+}
