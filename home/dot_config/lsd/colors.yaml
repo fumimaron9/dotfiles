@@ -1,0 +1,30 @@
+# Nord Theme
+
+user: "#81A1C1"
+group: "#8FBCBB"
+permission:
+  read: "#A3BE8C"
+  write: "#EBCB8B"
+  exec: "#BF616A"
+  exec-sticky: "#D08770"
+  no-access: "#4C566A"
+  octal: "#B48EAD"
+  acl: "#EBCB8B"
+  context: "#88C0D0"
+date:
+  hour-old: "#D8DEE9"
+  day-old: "#ECEFF4"
+  older: "#616E88"
+size:
+  none: "#D8DEE9"
+  small: "#A3BE8C"
+  medium: "#EBCB8B"
+  large: "#BF616A"
+inode:
+  valid: "#81A1C1"
+  invalid: "#BF616A"
+links:
+  valid: "#A3BE8C"
+  invalid: "#BF616A"
+tree-edge: "#4C566A"
+

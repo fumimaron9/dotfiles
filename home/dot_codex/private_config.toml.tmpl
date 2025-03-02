@@ -1,0 +1,70 @@
+model = "gpt-5.2-codex"
+model_reasoning_effort = "xhigh"
+
+approval_policy = "untrusted"
+sandbox_mode    = "read-only"
+
+file_opener = "vscode"
+notify = ["bash", "-lc", "afplay /System/Library/Sounds/Ping.aiff"]
+web_search = "cached"
+
+profile = "full_auto"
+
+suppress_unstable_features_warning = true
+
+# [[skills.config]]
+# # path = "/path/to/skill"
+# # enabled = false
+
+[sandbox_workspace_write]
+network_access = true
+writable_roots = []
+
+[shell_environment_policy]
+
+
+[tui]
+show_tooltips = false
+
+[notice]
+
+
+[features]
+unified_exec = true
+shell_snapshot = true
+collaboration_modes = true
+
+[mcp_servers]
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+http_headers = { "CONTEXT7_API_KEY" = "{{ onepasswordRead "op://Personal/context7 api key/credential" }}" }
+enabled = false
+
+[mcp_servers.aws-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp", "--metadata", "AWS_REGION=us-west-2"]
+startup_timeout_sec = 10
+enabled = false
+
+[mcp_servers.eks-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://eks-mcp.us-west-2.api.aws/mcp", "--service", "eks-mcp", "--profile", "f9-practice"]
+startup_timeout_sec = 10
+enabled = false
+
+[model_providers]
+
+
+[profiles]
+
+[profiles.full_auto]
+approval_policy = "on-request"
+sandbox_mode    = "workspace-write"
+
+[profiles.readonly_quiet]
+approval_policy = "never"
+sandbox_mode    = "read-only"
+
+[projects]
+

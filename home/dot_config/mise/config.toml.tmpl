@@ -1,0 +1,45 @@
+# https://mise.jdx.dev/registry.html
+
+[tools]
+rust = "latest"
+cargo-binstall = "latest"
+#"cargo:ripgrep" = "latest"
+go = "latest"
+golangci-lint = "latest"
+gofumpt = "latest"
+buf = "latest"
+"go:github.com/google/osv-scanner/v2/cmd/osv-scanner" = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+"go:github.com/grafana/mcp-grafana/cmd/mcp-grafana" = "latest"
+{{ end -}}
+java = "latest"
+python = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+"pipx:mcp-scan" = "latest"
+{{ end -}}
+"pipx:poethepoet" = "latest"
+uv = "latest"
+node = "latest"
+pnpm = "latest"
+"npm:knip" = "latest"
+"npm:@github/copilot" = "prerelease"
+"npm:@google/gemini-cli" = "nightly"
+{{ if ne .chezmoi.os "windows" -}}
+"npm:@openai/codex" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+{{ end -}}
+"npm:aws-cdk" = "latest"
+aws-sam = "latest"
+terraform = "latest"
+tflint = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+trivy = "latest"
+{{ end -}}
+snyk = "latest"
+cloudflared = "latest"
+
+[settings]
+experimental = true
+
+[settings.cargo]
+binstall = true

@@ -1,0 +1,187 @@
+set nocompatible
+
+set encoding=utf-8
+scriptencoding utf-8
+
+set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp,default,latin
+
+set fileformats=unix,dos
+
+syntax on
+filetype plugin indent on
+
+set backspace=indent,eol,start
+
+set ruler
+set statusline=%<%f\ [%n]\ %h%r%{&readonly?'[RO]':''}\ %{&modified?'[+]':''}%=%{&fileencoding==''?&encoding:&fileencoding}\ %{&fileformat}\ %{&filetype==''?'none':&filetype}\ %{&expandtab?'spaces':'tabs'}:%{&shiftwidth}\ %l:%c\ %p%%
+set laststatus=2
+set showcmd
+set showmode
+set nocursorline
+augroup MyCursorLine
+  autocmd!
+  autocmd WinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+
+
+
+set nobackup
+set nowritebackup
+if exists('$SANDBOX')
+  set viminfo=
+  set noswapfile
+endif
+
+
+
+
+"set nowrap
+augroup MyWrap
+  autocmd!
+  autocmd FileType text,markdown setlocal wrap linebreak
+augroup END
+
+
+set nobomb
+
+set mouse=a
+
+
+
+
+
+if exists('&termguicolors')
+  set termguicolors
+endif
+colorscheme default
+
+
+
+
+
+
+
+
+set textwidth=0
+
+if exists('+colorcolumn')
+  set colorcolumn=
+endif
+
+augroup MyTextWidth
+  autocmd!
+  if exists('+colorcolumn')
+    autocmd FileType text,markdown setlocal textwidth=80 colorcolumn=+1
+  else
+    autocmd FileType text,markdown setlocal textwidth=80
+  endif
+augroup END
+
+
+
+
+set matchtime=2
+
+
+
+
+
+
+if has('clipboard')
+  if has('unnamed')
+    set clipboard^=unnamed
+  endif
+  if has('unnamedplus')
+    set clipboard^=unnamedplus
+  endif
+endif
+
+
+set iskeyword+=-
+
+
+
+set wildmenu
+set wildmode=list:full
+
+
+
+if exists('&wildignorecase')
+  set wildignorecase
+endif
+set wildignore+=*.o,*.obj,*.pyc,*.class,*.swp,*.DS_Store
+
+
+
+
+set timeout timeoutlen=1000 ttimeoutlen=100
+
+
+set whichwrap=b,s,<,>
+
+
+
+set display+=lastline
+
+
+
+
+" 貼り付け時のコメントでるのを改善
+augroup MyFormatOptions
+  autocmd!
+  autocmd FileType * setlocal formatoptions-=cro
+augroup END
+
+
+" insetモードから抜けるときにnopaste
+" paste を抜け忘れない
+augroup MyPaste
+  autocmd!
+  autocmd InsertLeave * setlocal nopaste
+augroup END
+
+
+
+
+
+
+
+let mapleader=" "
+
+set number
+nnoremap <leader>n :set number!<CR>
+
+
+
+set nolist
+set listchars=tab:»·,trail:·
+nnoremap <leader>l :set list!<CR>
+
+
+
+set nofoldenable
+nnoremap <leader>f :set foldenable!<CR>
+
+
+
+nnoremap <leader>m :messages<CR>
+
+
+
+
+set nocursorcolumn
+nnoremap <leader>c :set cursorcolumn!<CR>
+
+
+nnoremap <Esc><Esc> :nohlsearch<CR>

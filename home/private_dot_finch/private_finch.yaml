@@ -1,0 +1,5 @@
+cpus: 2
+memory: 4GiB
+rosetta: false
+vmType: vz
+dockercompat: true

@@ -1,0 +1,126 @@
+source $XDG_CONFIG_HOME/rc/paths
+source $XDG_CONFIG_HOME/rc/aliases
+
+export PROMPT_EOL_MARK=""
+
+########## hooks
+DISABLE_AUTO_TITLE="true"
+function precmd_set_tab_title() {
+  # sets the tab title to current dir
+  echo -ne "\e]1;${PWD##*/}\a"
+}
+autoload -Uz "add-zsh-hook"
+add-zsh-hook "precmd" "precmd_set_tab_title"
+
+
+
+########## prezto
+# https://github.com/sorin-ionescu/prezto/tree/master/modules
+#zinit snippet "PZT::modules/environment/init.zsh"
+#zinit snippet "PZT::modules/history/init.zsh"
+setopt no_beep
+setopt ignoreeof
+setopt no_flow_control
+setopt hist_ignore_space
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt share_history
+
+# gh cli
+# https://github.com/cli/cli/discussions/9227
+setopt completealiases
+
+
+########## completions
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+zmodload zsh/complist
+
+zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:commands' rehash 1
+
+## 1password-cli
+eval "$(`brew --prefix`/bin/op completion zsh)"; compdef _op op
+## awscli
+complete -C $(brew --prefix awscli)/bin/aws_completer aws
+## gcloud
+source "`brew --prefix`/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+
+########## bindkeys vi
+
+# bindkey -d
+bindkey -v
+
+# delete bindkey
+# bindkey -r "^R"
+
+# ctrl
+bindkey -M viins "^A" beginning-of-line # default: self-insert
+bindkey -M viins "^B" backward-char # default: self-insert
+bindkey -M viins "^C" self-insert # default: self-insert
+#bindkey -M viins "^D" _bash-ctrl-d # default: list-choices
+bindkey -M viins "^E" end-of-line # default: self-insert
+bindkey -M viins "^F" forward-char # default: self-insert
+bindkey -M viins "^G" send-break # default: list-expand
+bindkey -M viins "^H" backward-delete-char # default: vi-backward-delete-char
+bindkey -M viins "^I" expand-or-complete # default: expand-or-complete
+bindkey -M viins "^J" accept-line # default: accept-line
+bindkey -M viins "^K" kill-line # default: kill-line
+bindkey -M viins "^L" clear-screen # default: clear-screen
+bindkey -M viins "^M" accept-line # default: accept-line
+bindkey -M viins "^N" down-line-or-history # default: down-line-or-history
+bindkey -M viins "^O" self-insert # default: self-insert
+bindkey -M viins "^P" up-line-or-history # default: up-line-or-history
+bindkey -M viins "^Q" vi-quoted-insert # default: vi-quoted-insert
+bindkey -M viins "^R" history-incremental-pattern-search-backward # default: history-incremental-pattern-search-backward
+bindkey -M viins "^S" history-incremental-pattern-search-forward # default: history-incremental-pattern-search-forward
+bindkey -M viins "^T" self-insert # default: self-insert
+bindkey -M viins "^U" backward-kill-line # default: backward-kill-line
+bindkey -M viins "^V" vi-quoted-insert # default: vi-quoted-insert
+bindkey -M viins "^W" backward-kill-word # default: backward-kill-word
+bindkey -M viins "^X" undefined-key # default: undefined-key
+bindkey -M viins "^Y" self-insert # default: self-insert
+bindkey -M viins "^Z" self-insert # default: self-insert
+# backspace or delete
+bindkey -M viins "^?" backward-delete-char # default: backward-delete-char
+# shift + ctrl + f
+bindkey -M viins "^[[102;6u" forward-word
+# shift + ctrl + b
+bindkey -M viins "^[[98;6u" backward-word
+# shift + tab
+bindkey -M menuselect "^[[Z" reverse-menu-complete
+
+# bash like ctrl-d wrapper for IGNOREEOF
+function _bash-ctrl-d() {
+  if [[ $CURSOR == 0 && -z $BUFFER ]]
+  then
+    [[ -z $IGNOREEOF || $IGNOREEOF == 0 ]] && exit
+    if [[ "$LASTWIDGET" == "bash-ctrl-d" ]]
+    then
+      (( --__BASH_IGNORE_EOF <= 0 )) && exit
+    else
+      (( __BASH_IGNORE_EOF = IGNOREEOF ))
+    fi
+    echo "Use "exit" to leave the shell."
+    zle send-break
+  else
+    zle delete-char-or-list
+  fi
+}
+zle -N _bash-ctrl-d
+bindkey "^D" _bash-ctrl-d
+
+
+
+eval "$(sheldon source)"
+
+source <(`brew --prefix`/bin/fzf --zsh)
+eval "$(`brew --prefix`/bin/starship init zsh)"
+
+export SKIM_DEFAULT_OPTIONS="--layout=reverse"
+export FZF_DEFAULT_OPTS="--height 30% --layout=reverse --border"
+
+eval "$(`brew --prefix`/bin/mise activate zsh)"
