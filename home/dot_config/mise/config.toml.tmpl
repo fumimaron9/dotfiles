@@ -1,0 +1,44 @@
+# https://mise.jdx.dev/registry.html
+
+[tools]
+rust = "latest"
+cargo-binstall = "latest"
+#"cargo:ripgrep" = "latest"
+go = "latest"
+golangci-lint = "latest"
+gofumpt = "latest"
+buf = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+"go:github.com/grafana/mcp-grafana/cmd/mcp-grafana" = "latest"
+{{ end -}}
+java = "latest"
+python = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+"pipx:awslabs.core-mcp-server" = "latest"
+"pipx:awslabs-nova-canvas-mcp-server" = "latest"
+"pipx:awslabs.bedrock-kb-retrieval-mcp-server" = "latest"
+"pipx:awslabs.cost-analysis-mcp-server" = "latest"
+"pipx:awslabs.aws-documentation-mcp-server" = "latest"
+{{ end -}}
+uv = "latest"
+node = "latest"
+"npm:pnpm" = "latest"
+"npm:knip" = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@playwright/mcp" = "latest"
+"npm:@modelcontextprotocol/server-filesystem" = "latest"
+{{ end -}}
+aws-sam = "latest"
+terraform = "latest"
+tflint = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+trivy = "latest"
+{{ end -}}
+snyk = "latest"
+
+[settings]
+experimental = true
+
+[settings.cargo]
+binstall = true
