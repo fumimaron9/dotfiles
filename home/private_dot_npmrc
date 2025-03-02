@@ -1,0 +1,17 @@
+registry=http://registry.npmjs.org/
+strict-ssl=true
+#cafile=
+
+save-exact=true
+package-lock=true
+audit=true
+ignore-scripts=true
+min-release-age=7
+
+allow-git=root
+allow-remote=root
+allow-file=root
+allow-directory=root
+
+fund=false
+update-notifier=true

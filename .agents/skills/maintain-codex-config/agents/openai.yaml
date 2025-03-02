@@ -1,0 +1,3 @@
+interface:
+  display_name: "Maintain Codex Config"
+  short_description: "Maintain the chezmoi Codex config template"

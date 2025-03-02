@@ -1,0 +1,329 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $current := dict -}}
+{{- if .chezmoi.stdin -}}
+{{-   $current = fromToml .chezmoi.stdin -}}
+{{- end -}}
+{{- $browserClientSha256s := $current | dig "shell_environment_policy" "set" "NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S" "" -}}
+{{- $nodeRepl := $current | dig "mcp_servers" "node_repl" (dict) -}}
+{{- $projects := $current | dig "projects" (dict) -}}
+{{- $openaiBundledMarketplace := $current | dig "marketplaces" "openai-bundled" (dict) -}}
+{{- $openaiPrimaryRuntimeMarketplace := $current | dig "marketplaces" "openai-primary-runtime" (dict) -}}
+{{- $plugins := $current | dig "plugins" (dict) -}}
+{{- $hooksState := $current | dig "hooks" "state" (dict) -}}
+################################################################################
+# Core Model Selection
+################################################################################
+
+model = "gpt-5.6-sol"
+personality = "pragmatic"
+#service_tier = "fast"
+
+################################################################################
+# Reasoning & Verbosity (Responses API capable models)
+################################################################################
+
+model_reasoning_effort = "medium"
+plan_mode_reasoning_effort = "high"
+model_reasoning_summary = "detailed"
+model_verbosity = "low"
+model_supports_reasoning_summaries = true
+
+################################################################################
+# Instruction Overrides
+################################################################################
+
+################################################################################
+# Notifications
+################################################################################
+
+notify = ["{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"bash\",\"-lc\",\"afplay \\/System\\/Library\\/Sounds\\/Ping.aiff\"]"]
+
+################################################################################
+# Approval & Sandbox
+################################################################################
+
+#approval_policy = "untrusted"
+approval_policy = "on-request"
+#sandbox_mode = "read-only"
+sandbox_mode = "workspace-write"
+#default_permissions = ":read-only"
+default_permissions = ":workspace"
+
+################################################################################
+# History & File Opener
+################################################################################
+
+file_opener = "vscode"
+
+################################################################################
+# UI, Notifications, and Misc
+################################################################################
+
+hide_agent_reasoning = false
+show_raw_agent_reasoning = true
+check_for_update_on_startup = false
+
+################################################################################
+# Web Search
+################################################################################
+
+web_search = "cached"
+
+################################################################################
+# Agents (multi-agent roles and limits)
+################################################################################
+
+#[agents]
+#max_threads = 12
+#max_depth = 2
+
+################################################################################
+# Skills (per-skill overrides)
+################################################################################
+
+################################################################################
+# Sandbox settings (tables)
+################################################################################
+
+[sandbox_workspace_write]
+network_access = false
+writable_roots = []
+
+################################################################################
+# Shell Environment Policy for spawned processes (table)
+################################################################################
+
+{{ if $browserClientSha256s -}}
+[shell_environment_policy]
+
+[shell_environment_policy.set]
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = {{ $browserClientSha256s | quote }}
+{{- end }}
+
+################################################################################
+# Sandboxed networking settings
+################################################################################
+
+################################################################################
+# History (table)
+################################################################################
+
+################################################################################
+# UI, Notifications, and Misc (tables)
+################################################################################
+
+[tui]
+show_tooltips = false
+status_line = ["model-with-reasoning", "context-remaining", "five-hour-limit", "weekly-limit", "used-tokens", "current-dir", "git-branch", "fast-mode"]
+terminal_title = ["spinner", "project", "task-progress", "status", "thread"]
+
+[notice]
+#suppress_unstable_features_warning = true
+hide_rate_limit_model_nudge = true
+
+################################################################################
+# Centralized Feature Flags (preferred)
+################################################################################
+
+[features]
+hooks = true
+voice_transcription = true
+unified_exec = true
+shell_snapshot = true
+multi_agent = true
+js_repl = false
+memories = false
+chronicle = false
+
+################################################################################
+# Memories (table)
+################################################################################
+
+################################################################################
+# Lifecycle hooks can be configured here inline or in a sibling hooks.json.
+################################################################################
+
+################################################################################
+# Define MCP servers under this table. Leave empty to disable.
+################################################################################
+
+[mcp_servers]
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+http_headers = { "CONTEXT7_API_KEY" = "{{ onepasswordRead "op://Personal/context7 api key/credential" }}" }
+enabled = false
+
+[mcp_servers.aws-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp", "--metadata", "AWS_REGION=us-west-2"]
+startup_timeout_sec = 10
+enabled = false
+
+[mcp_servers.eks-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://eks-mcp.us-west-2.api.aws/mcp", "--service", "eks-mcp", "--profile", "f9-practice"]
+startup_timeout_sec = 10
+enabled = false
+
+{{ if $nodeRepl -}}
+[mcp_servers.node_repl]
+{{ $nodeRepl | toToml | replaceAllRegex `(?m)^\[` `[mcp_servers.node_repl.` | replaceAllRegex `(?m)^  ` `` | trim -}}
+{{ else -}}
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "{{ .chezmoi.homeDir }}/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "{{ .chezmoi.homeDir }}/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "0"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.820.60940"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"{{ .chezmoi.homeDir }}/.codex/plugins/cache/openai-bundled/browser/26.820.60940/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+{{- end }}
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+################################################################################
+# Model Providers
+################################################################################
+
+[model_providers]
+
+################################################################################
+# Apps / Connectors
+################################################################################
+
+################################################################################
+# Config Profiles (separate files)
+################################################################################
+
+################################################################################
+# Projects (trust levels)
+################################################################################
+
+{{ if $projects -}}
+[projects]
+{{ $projects | toToml | replaceAllRegex `(?m)^\[` `[projects.` | replaceAllRegex `(?m)^  ` `` | trim -}}
+{{ else -}}
+[projects]
+
+[projects."{{ .chezmoi.workingTree }}"]
+trust_level = "trusted"
+{{- end }}
+
+################################################################################
+# Tools
+################################################################################
+
+################################################################################
+# OpenTelemetry (OTEL) - disabled by default
+################################################################################
+
+################################################################################
+# Windows
+################################################################################
+
+[windows]
+sandbox = "unelevated"
+
+################################################################################
+# ChatGPT.app
+################################################################################
+
+{{ if $openaiBundledMarketplace -}}
+[marketplaces.openai-bundled]
+{{ $openaiBundledMarketplace | toToml | trim -}}
+{{ else -}}
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled"
+{{- end }}
+
+{{ if $openaiPrimaryRuntimeMarketplace -}}
+[marketplaces.openai-primary-runtime]
+{{ $openaiPrimaryRuntimeMarketplace | toToml | trim -}}
+{{ else -}}
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-08-06T04:10:08Z"
+source_type = "local"
+source = "{{ .chezmoi.homeDir }}/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+{{- end }}
+
+{{ if $plugins -}}
+[plugins]
+{{ $plugins | toToml | replaceAllRegex `(?m)^\[` `[plugins.` | replaceAllRegex `(?m)^  ` `` | trim -}}
+{{ else -}}
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."slack@openai-curated"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+{{- end }}
+
+[desktop]
+ambient-suggestions-enabled = false
+followUpQueueMode = "queue"
+dock-icon-preference = "app-default"
+conversationDetailMode = "STEPS_PROSE"
+
+[desktop.open-in-target-preferences]
+global = "ghostty"
+{{ if $hooksState }}
+[hooks.state]
+{{ $hooksState | toToml | replaceAllRegex `(?m)^\[` `[hooks.state.` | replaceAllRegex `(?m)^  ` `` | trim -}}
+{{- end }}

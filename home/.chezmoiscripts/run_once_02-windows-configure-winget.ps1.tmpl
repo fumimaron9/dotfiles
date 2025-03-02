@@ -1,0 +1,7 @@
+﻿{{ if eq .chezmoi.os "windows" -}}
+winget uninstall -e --id Microsoft.OneDrive
+winget uninstall -e --id Microsoft.Teams
+winget uninstall -e --id Microsoft.Teams.Free
+
+winget configure $env:HOMEPATH\configuration.dsc.yaml --accept-configuration-agreements
+{{ end -}}

@@ -1,0 +1,26 @@
+{{ if ne .chezmoi.os "windows" -}}
+**/*.ps1
+**/*.dsc.yaml
+AppData/**
+Documents/**
+{{ end -}}
+
+{{ if ne .chezmoi.os "darwin" -}}
+**/*.sh
+Library/**
+{{ end -}}
+
+{{ if eq .chezmoi.os "windows" -}}
+.bash_profile
+.bashrc
+.inputrc
+.tmux.conf
+.zprofile
+.zshrc
+.config/rc
+.config/sheldon
+Brewfile
+{{ end -}}
+
+.rpmmacros
+**/node_modules/**

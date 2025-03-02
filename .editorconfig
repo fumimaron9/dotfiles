@@ -1,0 +1,21 @@
+root = true
+
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+indent_size = 4
+trim_trailing_whitespace = false
+
+[{Makefile,**.mk}]
+indent_style = tab
+
+[*.{ps1,ps1.tmpl}]
+# end_of_line = crlf
+#end_of_line = unset # Compliant with git config core.autocrlf=true
+charset = utf-8-bom
