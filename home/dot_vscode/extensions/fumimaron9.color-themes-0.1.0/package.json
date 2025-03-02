@@ -1,0 +1,19 @@
+{
+    "name": "color-themes",
+    "displayName": "My color themes",
+    "description": "My color themes for VSCode",
+    "version": "0.1.0",
+    "publisher": "fumimaron9",
+    "engines": {
+        "vscode": "^1.98.0"
+    },
+    "contributes": {
+        "themes": [
+            {
+                "label": "Nord",
+                "uiTheme": "vs-dark",
+                "path": "./themes/nord.json"
+            }
+        ]
+    }
+}
