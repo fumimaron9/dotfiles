@@ -1,0 +1,5 @@
+font-family = JetBrainsMono Nerd Font Mono
+font-thicken = true
+font-feature = -dlig
+font-size = 13
+theme = nord
