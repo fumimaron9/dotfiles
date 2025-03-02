@@ -1,0 +1,3 @@
+{{ if eq .chezmoi.os "windows" -}}
+winget configure $env:HOMEPATH\configuration.dsc.yaml --accept-configuration-agreements
+{{ end -}}

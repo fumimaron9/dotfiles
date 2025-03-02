@@ -1,0 +1,20 @@
+# https://mise.jdx.dev/registry.html
+
+[tools]
+go = "latest"
+golangci-lint = "latest"
+gofumpt = "latest"
+rust = "latest"
+java = "latest"
+python = "latest"
+uv = "latest"
+node = "latest"
+"npm:pnpm" = "latest"
+aws-sam = "latest"
+buf = "latest"
+terraform = "latest"
+tflint = "latest"
+{{ if ne .chezmoi.os "windows" -}}
+trivy = "latest"
+{{ end -}}
+snyk = "latest"
