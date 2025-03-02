@@ -1,0 +1,23 @@
+{
+  "model": "codex-mini-latest",
+  "providers": {
+    "gemini": {
+      "name": "Gemini",
+      "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "envKey": "GEMINI_API_KEY"
+    },
+    "ollama": {
+      "name": "Ollama",
+      "baseURL": "http://localhost:11434/v1",
+      "envKey": "OLLAMA_API_KEY"
+    }
+  },
+  "approvalMode": "suggest",
+  "fullAutoErrorMode": "ask-user",
+  "notify": true,
+  "history": {
+    "maxSize": 1000,
+    "saveHistory": true,
+    "sensitivePatterns": []
+  }
+}
