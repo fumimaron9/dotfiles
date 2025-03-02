@@ -1,0 +1,96 @@
+[user]
+  name = {{ (onepasswordItemFields "Personal profile").name.value }}
+  email = {{ (onepasswordItemFields "Personal profile").mail.value }}
+  signingkey = {{ (onepasswordDetailsFields "fumimaron9@local").public_key.value }}
+
+[gpg]
+  format = ssh
+[gpg "ssh"]
+{{ if eq .chezmoi.os "windows" -}}
+  program = "op-ssh-sign.exe"
+{{ else if eq .chezmoi.os "darwin" -}}
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{ else -}}
+  program =
+{{ end -}}
+[commit]
+  gpgsign = true
+
+[init]
+  defaultBranch = main
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[pull]
+  ff = only
+[rerere]
+  enabled = true
+  autoupdate = true
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+
+[core]
+  safecrlf = true
+  autocrlf = false
+  filemode = false
+  pager = less -R
+  whitespace = trailing-space,space-before-tab,-indent-with-non-tab,-cr-at-eol
+[color]
+  ui = auto
+[column]
+  ui = auto
+[apply]
+  whitespace = fix
+[help]
+  autocorrect = 1
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+{{ if ne .chezmoi.os "windows" -}}
+[pager]
+  log = diff-highlight | less -R
+  show = diff-highlight | less -R
+  diff = diff-highlight | less -R
+{{ end -}}
+
+{{ if eq .chezmoi.os "windows" -}}
+[credential "https://github.com"]
+  helper =
+  helper = !'C:\\Program Files\\GitHub CLI\\gh.exe' auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !'C:\\Program Files\\GitHub CLI\\gh.exe' auth git-credential
+{{ else if eq .chezmoi.os "darwin" -}}
+[credential "https://github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/op plugin run -- gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/op plugin run -- gh auth git-credential
+
+[includeIf "gitdir:~/workspace/1/**"]
+  path = ~/.gitconfig-1
+[includeIf "gitdir:~/workspace/2/**"]
+  path = ~/.gitconfig-2
+[includeIf "gitdir:~/workspace/3/**"]
+  path = ~/.gitconfig-3
+{{ end -}}
+
+[alias]
+  pushf = push --force-with-lease --force-if-includes
