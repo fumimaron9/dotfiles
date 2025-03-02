@@ -1,0 +1,26 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = false
+
+palette = "nord"
+
+[palettes.nord]
+black = "#2E3440"
+red = "#BF616A"
+green = "#A3BE8C"
+yellow = "#EBCB8B"
+blue = "#5E81AC"
+purple = "#B48EAD"
+cyan = "#88C0D0"
+white = "#D8DEE9"
+bright-black = "#4C566A"
+bright-red = "#D08770"
+bright-green = "#8FBCBB"
+bright-yellow = "#EBCB8B"
+bright-blue = "#81A1C1"
+bright-purple = "#B48EAD"
+bright-cyan = "#8FBCBB"
+bright-white = "#ECEFF4"
+
+[gcloud]
+disabled = true

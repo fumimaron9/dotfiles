@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+
+# Brewfile hash: {{ include "Brewfile.tmpl" | sha256sum }}
+
+brew bundle install --no-upgrade --file=/dev/stdin <<EOF
+{{ includeTemplate "Brewfile.tmpl" . -}}
+EOF
+{{ end -}}
