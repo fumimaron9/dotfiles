@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "publisher": "fumimaron9",
     "engines": {
-        "vscode": "^1.98.0"
+        "vscode": "^1.96.0"
     },
     "contributes": {
         "themes": [
@@ -15,5 +15,8 @@
                 "path": "./themes/nord.json"
             }
         ]
+    },
+    "devDependencies": {
+        "vsce": "^2.15.0"
     }
 }
