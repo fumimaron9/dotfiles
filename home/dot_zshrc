@@ -39,6 +39,8 @@ zstyle ':completion:*:commands' rehash 1
 
 ## 1password-cli
 #eval "$(`brew --prefix`/bin/op completion zsh)"; compdef _op op
+## github cli
+eval "$(`brew --prefix gh` completion --shell zsh)"
 ## awscli
 complete -C $(brew --prefix awscli)/bin/aws_completer aws
 ## gcloud
