@@ -96,6 +96,8 @@ chezmoi data
 chezmoi --verbose --dry-run apply
 chezmoi --verbose apply
 
+git remote set-url origin $(git config --get remote.origin.url | sed -e "s/https:\/\/github\.com\//git@github.com:/g")
+
 exit
 ```
 
