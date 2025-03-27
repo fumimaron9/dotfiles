@@ -10,7 +10,9 @@ python = "latest"
 uv = "latest"
 node = "latest"
 "npm:pnpm" = "latest"
+{{ if ne .chezmoi.os "windows" -}}
 "npm:@anthropic-ai/claude-code" = "latest"
+{{ end -}}
 aws-sam = "latest"
 buf = "latest"
 terraform = "latest"
