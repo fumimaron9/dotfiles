@@ -15,13 +15,6 @@ buf = "latest"
 java = "latest"
 python = "latest"
 {{ if ne .chezmoi.os "windows" -}}
-"pipx:awslabs.core-mcp-server" = "latest"
-"pipx:awslabs-nova-canvas-mcp-server" = "latest"
-"pipx:awslabs.bedrock-kb-retrieval-mcp-server" = "latest"
-"pipx:awslabs.cost-analysis-mcp-server" = "latest"
-"pipx:awslabs.aws-documentation-mcp-server" = "latest"
-"pipx:awslabs.aws-diagram-mcp-server" = "latest"
-"pipx:awslabs.terraform-mcp-server" = "latest"
 "pipx:mcp-scan" = "latest"
 {{ end -}}
 uv = "latest"
