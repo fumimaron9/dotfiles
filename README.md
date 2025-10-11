@@ -94,7 +94,7 @@ chezmoi doctor
 ```bash
 chezmoi data
 chezmoi --verbose --dry-run apply
-chezmoi --verbose apply
+chezmoi apply
 
 git remote set-url origin $(git config --get remote.origin.url | sed -e "s/https:\/\/github\.com\//git@github.com:/g")
 
@@ -141,7 +141,7 @@ chezmoi status
 chezmoi update
 
 chezmoi diff
-chezmoi --verbose apply
+chezmoi apply
 ```
 
 ### edit
@@ -149,12 +149,18 @@ chezmoi --verbose apply
 ```bash
 chezmoi edit
 chezmoi diff
-chezmoi --verbose apply
+chezmoi apply
 
 chezmoi cd
 git add .
 git commit -me
 git push
+```
+
+### re-run run_once_ scripts
+
+```bash
+chezmoi state delete-bucket --bucket=scriptState
 ```
 
 ### testing template

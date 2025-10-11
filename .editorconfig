@@ -14,3 +14,8 @@ trim_trailing_whitespace = false
 
 [{Makefile,**.mk}]
 indent_style = tab
+
+[*.{ps1,ps1.tmpl}]
+# end_of_line = crlf
+#end_of_line = unset # Compliant with git config core.autocrlf=true
+charset = utf-8-bom
