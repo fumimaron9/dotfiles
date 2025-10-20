@@ -119,7 +119,7 @@ q doctor
 
 ```powershell
 winget list --upgrade-available
-sudo.exe winget upgrade --recurse
+sudo.exe winget upgrade --all
 ```
 
 ## Operation brew

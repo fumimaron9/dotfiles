@@ -10,9 +10,13 @@
 {{ if eq .chezmoi.os "windows" -}}
 [cd]
     command = "pwsh"
-{{ else -}}
+{{ else if eq .chezmoi.os "darwin" -}}
 [cd]
     command = "zsh"
+    args = "--login"
+{{ else -}}
+[cd]
+    command = "bash"
     args = "--login"
 {{ end -}}
 
