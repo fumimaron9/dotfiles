@@ -70,6 +70,7 @@ brew "nmap"
 brew "nikto"
 brew "microsoft/msstore-cli/msstore-cli"
 
+{{ if ne contains "WSL2" .chezmoi.kernel.osrelease -}}
 cask "font-jetbrains-mono-nerd-font"
 cask "1password"
 cask "1password-cli"
@@ -117,7 +118,10 @@ cask "claude"
 cask "devtoys"
 cask "finch"
 
+{{ if eq .chezmoi.os "darwin" -}}
 #mas "Feedly", id: 865500966
 mas "1Password 7", id: 1333542190
 mas "Amazon Kindle", id: 302584613
 mas 'XCode', id: 497799835
+{{ end -}}
+{{ end -}}
