@@ -1,3 +1,6 @@
+source $XDG_CONFIG_HOME/rc/paths
+source $XDG_CONFIG_HOME/rc/aliases
+
 export SHELL=`which bash`
 
 if shopt | grep 'direxpand' > /dev/null 2>&1; then
