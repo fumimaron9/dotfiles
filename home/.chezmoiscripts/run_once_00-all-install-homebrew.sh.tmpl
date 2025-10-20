@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if ne .chezmoi.os "windows" -}}
 #!/bin/sh
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
