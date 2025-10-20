@@ -8,7 +8,6 @@ post-checkout:
       run: lefthook install
 
 pre-commit:
-  parallel: true
   jobs:
     - name: Check secrets
       run: gitleaks git --pre-commit --redact --staged --verbose
