@@ -17,7 +17,7 @@ Library/**
 .tmux.conf
 .zprofile
 .zshrc
-.config/zsh
+.config/rc
 .config/sheldon
 Brewfile
 {{ end -}}
