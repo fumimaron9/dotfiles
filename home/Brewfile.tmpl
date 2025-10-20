@@ -70,7 +70,7 @@ brew "nmap"
 brew "nikto"
 brew "microsoft/msstore-cli/msstore-cli"
 
-{{ if ne contains "WSL2" .chezmoi.kernel.osrelease -}}
+{{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) -}}
 cask "font-jetbrains-mono-nerd-font"
 cask "1password"
 cask "1password-cli"
