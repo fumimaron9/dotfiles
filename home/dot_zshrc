@@ -28,7 +28,7 @@ setopt share_history
 
 # gh cli
 # https://github.com/cli/cli/discussions/9227
-#setopt completealiases
+setopt completealiases
 
 
 ########## completions
@@ -42,9 +42,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:commands' rehash 1
 
 ## 1password-cli
-#eval "$(`brew --prefix`/bin/op completion zsh)"; compdef _op op
-## github cli
-#eval "$(`brew --prefix gh` completion --shell zsh)"
+eval "$(`brew --prefix`/bin/op completion zsh)"; compdef _op op
 ## awscli
 complete -C $(brew --prefix awscli)/bin/aws_completer aws
 ## gcloud
