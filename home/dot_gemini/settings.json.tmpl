@@ -1,0 +1,70 @@
+{
+  "tools": {
+    "autoAccept": false,
+    "exclude": [
+      "ShellTool(rm -rf)",
+      "ShellTool(sudo dd)",
+      "ShellTool(sudo mkfs)",
+      "ShellTool(sudo fdisk)",
+      "ShellTool(sudo mount)",
+      "ShellTool(sudo umount)",
+      "ShellTool(dd)",
+      "ShellTool(mkfs)",
+      "ShellTool(fdisk)",
+      "ShellTool(chmod 777 /*)",
+      "ShellTool(chown root)",
+      "ShellTool(sudo chmod 777)",
+      "ShellTool(sudo chown)",
+      "ShellTool(sudo -i)",
+      "ShellTool(sudo su)",
+      "ShellTool(docker system prune -af)",
+      "ShellTool(git commit)",
+      "ShellTool(git push)"
+    ],
+    "sandbox": false,
+    "discoveryCommand": "",
+    "callCommand": ""
+  },
+  "general": {
+    "checkpointing": {
+      "enabled": false
+    },
+    "preferredEditor": "neovim",
+    "vimMode": false
+  },
+  "context": {
+    "fileName": "GEMINI.md",
+    "fileFiltering": {
+      "respectGitIgnore": true,
+      "enableRecursiveFileSearch": false
+    }
+  },
+  "ide": {
+    "hasSeenNudge": true,
+    "enabled": true
+  },
+  "ui": {
+    "hideTips": true,
+    "hideBanner": true,
+    "theme": "Default"
+  },
+  "model": {
+    "maxSessionTurns": -1,
+    "summarizeToolOutput": {}
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "telemetry": {
+    "enabled": false,
+    "target": "local",
+    "otlpEndpoint": "http://localhost:4317",
+    "logPrompts": true
+  },
+  "privacy": {
+    "usageStatisticsEnabled": true
+  },
+  "useWriteTodos": true
+}
