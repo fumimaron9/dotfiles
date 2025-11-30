@@ -1,4 +1,4 @@
-model = "gpt-5-codex"
+model = "gpt-5.1-codex-mini"
 model_reasoning_effort = "medium"
 hide_agent_reasoning = true
 network_access = true
@@ -9,6 +9,6 @@ approval_policy = "untrusted"
 file_opener = "vscode"
 notify = ["bash", "-lc", "afplay /System/Library/Sounds/Ping.aiff"]
 
-[tools]
+[features]
 web_search = true
 
