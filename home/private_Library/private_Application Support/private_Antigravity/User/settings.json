@@ -7,5 +7,6 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.settings.applyToAllProfiles": [
     "editor.fontFamily"
-  ]
+  ],
+  "python.useEnvironmentsExtension": false
 }
