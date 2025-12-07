@@ -51,6 +51,7 @@ if [ -f "$HOME/.config/op/plugins.sh" ]; then
   source $HOME/.config/op/plugins.sh
 fi
 
-eval "$(`brew --prefix`/bin/mise activate zsh)"
-
-eval "$(sheldon source)"
+if [[ -n ${ZSH_VERSION-} ]]; then
+  eval "$(`brew --prefix`/bin/mise activate zsh)"
+  eval "$(sheldon source)"
+fi
