@@ -12,11 +12,17 @@ notify = ["bash", "-lc", "afplay /System/Library/Sounds/Ping.aiff"]
 [features]
 web_search_request = true
 
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+http_headers = { "CONTEXT7_API_KEY" = "{{ onepasswordRead "op://Personal/context7 api key/credential" }}" }
+enabled = true
+
 [mcp_servers.aws_mcp_server]
 command = "uvx"
 args = ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp", "--metadata", "AWS_REGION=us-west-2"]
 env = { "AWS_PROFILE" = "f9-practice" }
 startup_timeout_sec = 10
+enabled = false
 
 [notice]
 "hide_gpt-5.1-codex-max_migration_prompt" = true
