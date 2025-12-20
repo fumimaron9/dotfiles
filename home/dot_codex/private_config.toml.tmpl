@@ -24,6 +24,23 @@ env = { "AWS_PROFILE" = "f9-practice" }
 startup_timeout_sec = 10
 enabled = false
 
+[mcp_servers.cdk-mcp-server]
+command = "uvx"
+args = ["awslabs.cdk-mcp-server@latest"]
+startup_timeout_sec = 10
+enabled = true
+
+[mcp_servers.eks-mcp-server]
+command = "uvx"
+args = ["mcp-proxy-for-aws@latest", "https://eks-mcp.us-west-2.api.aws/mcp", "--service", "my-cluster"]
+env = { "AWS_PROFILE" = "f9-practice" }
+startup_timeout_sec = 10
+enabled = false
+
+
+
+
+
 [notice]
 "hide_gpt-5.1-codex-max_migration_prompt" = true
 
