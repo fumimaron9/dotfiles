@@ -70,12 +70,12 @@ brew "wireshark"
 brew "nmap"
 brew "nikto"
 brew "microsoft/msstore-cli/msstore-cli"
+brew "container"
 
 {{ if or (eq .chezmoi.os "darwin") (and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) -}}
 cask "font-jetbrains-mono-nerd-font"
 cask "1password"
 cask "1password-cli"
-cask "docker-desktop"
 cask "google-chrome"
 cask "gcloud-cli"
 cask "ghostty"
@@ -117,7 +117,6 @@ cask "anki"
 cask "chatgpt"
 cask "claude"
 cask "devtoys"
-cask "finch"
 
 {{ if eq .chezmoi.os "darwin" -}}
 #mas "Feedly", id: 865500966
