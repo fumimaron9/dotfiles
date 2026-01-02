@@ -7,18 +7,17 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
-  "assistant": {
+  "auto_install_extensions": {
+    "html": true,
+    "nord": true
+  },
+  "agent": {
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-4o"
-    },
-    "version": "2"
+    }
   },
   "ui_font_size": 14,
   "buffer_font_size": 14,
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "One Dark"
-  }
+  "theme": "Nord Dark"
 }
