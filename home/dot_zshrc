@@ -123,4 +123,6 @@ eval "$(`brew --prefix`/bin/starship init zsh)"
 export SKIM_DEFAULT_OPTIONS="--layout=reverse"
 export FZF_DEFAULT_OPTS="--height 30% --layout=reverse --border"
 
+source <(finch completion zsh)
+
 eval "$(`brew --prefix`/bin/mise activate zsh)"
