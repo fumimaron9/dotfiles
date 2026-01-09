@@ -3,7 +3,7 @@
   "editor.fontFamily": "JetBrainsMono Nerd Font, Menlo, Monaco, ’Courier New’, mono",
   "terminal.integrated.sendKeybindingsToShell": true,
   "terminal.integrated.stickyScroll.enabled": false,
-  //"workbench.colorTheme": "Nord",
+  "workbench.colorTheme": "Nord",
   "workbench.iconTheme": "vscode-icons",
   "workbench.settings.applyToAllProfiles": [
     "editor.fontFamily"
