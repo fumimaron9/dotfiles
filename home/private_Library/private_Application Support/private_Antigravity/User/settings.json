@@ -8,5 +8,7 @@
   "workbench.settings.applyToAllProfiles": [
     "editor.fontFamily"
   ],
-  "python.useEnvironmentsExtension": false
+  "python.useEnvironmentsExtension": false,
+  "containers.containerCommand": "finch",
+  "containers.composeCommand": "finch compose"
 }
