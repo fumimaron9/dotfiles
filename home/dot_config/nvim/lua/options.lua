@@ -21,5 +21,7 @@ vim.g.clipboard = {
 
 if vim.env.SANDBOX ~= nil then
   vim.opt.swapfile = false
+  vim.opt.backup = false
   vim.opt.shada = ""
+  vim.env.NVIM_LISTEN_ADDRESS = ""
 end
