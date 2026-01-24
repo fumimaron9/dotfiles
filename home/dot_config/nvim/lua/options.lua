@@ -19,3 +19,7 @@ vim.g.clipboard = {
   },
 }
 
+if vim.env.SANDBOX ~= nil then
+  vim.opt.swapfile = false
+  vim.opt.shada = ""
+end
