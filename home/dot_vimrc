@@ -1,7 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" configuration
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
 set nocompatible
 
 set encoding=utf-8
@@ -15,8 +11,6 @@ syntax on
 filetype plugin indent on
 
 set backspace=indent,eol,start
-"set nonumber
-set number
 
 set ruler
 set statusline=%<%f\ [%n]\ %h%r%{&readonly?'[RO]':''}\ %{&modified?'[+]':''}%=%{&fileencoding==''?&encoding:&fileencoding}\ %{&fileformat}\ %{&filetype==''?'none':&filetype}\ %{&expandtab?'spaces':'tabs'}:%{&shiftwidth}\ %l:%c\ %p%%
@@ -158,6 +152,8 @@ augroup END
 
 let mapleader=" "
 
+set number
+nnoremap <leader>n :set number!<CR>
 
 
 
@@ -193,13 +189,7 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 
 
 
-"set t_Co=0
 if exists('&termguicolors')
   set termguicolors
 endif
-
 colorscheme default
-
-"set background=light
-"set background=dark
-
