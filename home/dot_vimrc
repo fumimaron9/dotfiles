@@ -4,159 +4,155 @@
 
 set nocompatible
 
-" viminfo change location
-set viminfo+=n~/.viminfo
-
-""""" filetype
-filetype plugin indent on
-
-" インサートモード時にバックスペースを使う
-set backspace=indent,eol,start
-
-""""" encode & line
-set termencoding=utf-8
 set encoding=utf-8
+scriptencoding utf-8
+
 set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp,default,latin
-set ffs=unix,dos,mac
 
-""""" タブとインデント
-set noexpandtab
-set tabstop=4
-set softtabstop=4 "equal tabstop
-set shiftwidth=4 "equal tabstop
-
-""""" タブとインデント
-set expandtab
-set tabstop=2
-set softtabstop=2 "equal tabstop
-set shiftwidth=2 "equal tabstop
-
-""""" 単語
-set iskeyword+=-,@-@
-
-
-
-
-
-"set noautoindent
-set autoindent
-"set nosmartindent
-set smartindent
-"set nocindent
-"set cindent
-"set indentexpr=''
-
-
-""""" ステータス行
-"set laststatus=1
-set laststatus=2
-
-
-""""" colorscheme
-set termguicolors
-set background=light
-colorscheme solarized8
-
-
-
-""""" 構文ハイライト
-syntax enable
-
-"set cursorline
-"highlight CursorLine ctermbg=Black
-"highlight CursorLine ctermfg=Blue
-"set cursorcolumn
-"highlight CursorColumn ctermbg=Blue
-"highlight CursorColumn ctermfg=Green
-
-" 重いときに括弧のハイライトを削除
-"let loaded_matchparen = 1
-
-
-""""" 折りたたみの設定
-if (v:version > 703)
-  set nofoldenable
-endif
-"set foldmethod=manual
-"set foldlevel=1
-"set foldnestmax=2
-
-
-""""" 見えない文字を視覚化
-set list
-set nolist
-
-
-
-""""" 行番号＆行線
-set number
-"set nonumber
-set ruler
-
-set textwidth=120
-set formatoptions=q
-set colorcolumn=+1
-
-""""" 行の折り返し
-"set wrap
-set nowrap
-"set guioptions+=b
-
-
-
-""""" bom
-set nobomb
-
-
-""""" 文字コードと改行コード
-"set encoding=utf-8
-set fileencodings=utf-8,cp932,shift-jis,euc-jp,iso-2022-jp
 set fileformats=unix,dos
 
-""""" clipbord
-set clipboard=unnamed
+syntax on
+filetype plugin indent on
 
-""""" search
-set hlsearch " 検索結果強調-:nohで解除
-set incsearch " インクリメンタルサーチを有効
+set backspace=indent,eol,start
+"set nonumber
+set number
 
-" screenでvimホイール有効化
-" マウス有効化
-if has('mouse')
-  set mouse=a
-  set ttymouse=xterm2
+set ruler
+set laststatus=2
+set showcmd
+set showmode
+set cursorline
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+
+
+
+set nobackup
+if exists('$SANDBOX')
+  set viminfo=
+  set noswapfile
 endif
 
-" スワップを作らない
-set noswapfile
 
-" バックアップを取らない
-set nobackup
 
-" カーソルを行頭、行末でとまらないようにする
-set whichwrap=b,s,h,s,<,>,[,]
 
-" escの反応を素早くする
-set timeout timeoutlen=1000 ttimeoutlen=75
+"set nowrap
+augroup MyWrap
+  autocmd!
+  autocmd FileType text,markdown setlocal wrap
+augroup END
 
-" vimコマンド補完の強化
+
+set nobomb
+
+set mouse=a
+
+
+
+
+set textwidth=80
+if exists('+colorcolumn')
+  set colorcolumn=+1
+endif
+
+
+
+
+
+set matchtime=2
+
+
+
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
+
+
+set iskeyword+=-
+
+
+
 set wildmenu
 set wildmode=list:full
 
+
+
+
+set timeout timeoutlen=1000 ttimeoutlen=100
+
+
+set whichwrap=b,s,<,>
+
 " 貼り付け時のコメントでるのを改善
-autocmd FileType * set formatoptions-=ro
+augroup MyFormatOptions
+  autocmd!
+  autocmd FileType * setlocal formatoptions+=q formatoptions-=t formatoptions-=r formatoptions-=o
+augroup END
 
 " insetモードから抜けるときにnopaste
-autocmd InsertLeave * set nopaste
+" paste を抜け忘れない
+augroup MyPaste
+  autocmd!
+  autocmd InsertLeave * set nopaste
+augroup END
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" key mapping
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" check filetype
-" :verbose :setlocal filetype?
 
-" default mapping check
-" :help index.txt
 
-" user mapping check
-" :map or :nmap or :vap :vervose nmap ...
+
+
+
+
+let mapleader=" "
+
+
+
+
+set nolist
+set listchars=tab:»·,trail:·
+nnoremap <leader>l :set list!<CR>
+
+
+
+set nofoldenable
+nnoremap <leader>f :set foldenable!<CR>
+
+
+
+nnoremap <leader>m :messages<CR>
+
+
+
+
+set nocursorcolumn
+nnoremap <leader>c :set cursorcolumn!<CR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"set t_Co=0
+set termguicolors
+
+colorscheme default
+
+"set background=light
+"set background=dark
+
