@@ -23,7 +23,12 @@ set statusline=%<%f\ [%n]\ %h%r%{&readonly?'[RO]':''}\ %{&modified?'[+]':''}%=%{
 set laststatus=2
 set showcmd
 set showmode
-set cursorline
+set nocursorline
+augroup MyCursorLine
+  autocmd!
+  autocmd WinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
 set incsearch
 set hlsearch
 set ignorecase
@@ -49,7 +54,7 @@ endif
 "set nowrap
 augroup MyWrap
   autocmd!
-  autocmd FileType text,markdown setlocal wrap
+  autocmd FileType text,markdown setlocal wrap linebreak
 augroup END
 
 
@@ -60,11 +65,22 @@ set mouse=a
 
 
 
-set textwidth=80
+
+
+set textwidth=0
+
 if exists('+colorcolumn')
-  set colorcolumn=+1
+  set colorcolumn=
 endif
 
+augroup MyTextWidth
+  autocmd!
+  if exists('+colorcolumn')
+    autocmd FileType text,markdown setlocal textwidth=80 colorcolumn=+1
+  else
+    autocmd FileType text,markdown setlocal textwidth=80
+  endif
+augroup END
 
 
 
@@ -73,8 +89,13 @@ set matchtime=2
 
 
 
+
 if has('clipboard')
-  set clipboard=unnamedplus
+  if has('unnamedplus')
+    set clipboard=unnamedplus
+  else
+    set clipboard=unnamed
+  endif
 endif
 
 
@@ -96,14 +117,19 @@ set whichwrap=b,s,<,>
 " 貼り付け時のコメントでるのを改善
 augroup MyFormatOptions
   autocmd!
-  autocmd FileType * setlocal formatoptions+=q formatoptions-=t formatoptions-=r formatoptions-=o
+  autocmd FileType c,cpp,java,python,ruby,go,javascript,typescript,sh,vim
+        \ setlocal formatoptions+=q
+        \ | setlocal formatoptions-=t
+        \ | setlocal formatoptions-=r
+        \ | setlocal formatoptions-=o
 augroup END
+
 
 " insetモードから抜けるときにnopaste
 " paste を抜け忘れない
 augroup MyPaste
   autocmd!
-  autocmd InsertLeave * set nopaste
+  autocmd InsertLeave * setlocal nopaste
 augroup END
 
 
@@ -150,7 +176,9 @@ nnoremap <leader>c :set cursorcolumn!<CR>
 
 
 "set t_Co=0
-set termguicolors
+if exists('&termguicolors')
+  set termguicolors
+endif
 
 colorscheme default
 
