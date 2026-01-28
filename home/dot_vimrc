@@ -43,6 +43,7 @@ set autoindent
 
 
 set nobackup
+set nowritebackup
 if exists('$SANDBOX')
   set viminfo=
   set noswapfile
@@ -90,11 +91,14 @@ set matchtime=2
 
 
 
+
+
 if has('clipboard')
+  if has('unnamed')
+    set clipboard^=unnamed
+  endif
   if has('unnamedplus')
-    set clipboard=unnamedplus
-  else
-    set clipboard=unnamed
+    set clipboard^=unnamedplus
   endif
 endif
 
@@ -108,11 +112,23 @@ set wildmode=list:full
 
 
 
+set wildignorecase
+set wildignore+=*.o,*.obj,*.pyc,*.class,*.swp,*.DS_Store
+
+
+
 
 set timeout timeoutlen=1000 ttimeoutlen=100
 
 
 set whichwrap=b,s,<,>
+
+
+
+set display+=lastline
+
+
+
 
 " 貼り付け時のコメントでるのを改善
 augroup MyFormatOptions
@@ -163,7 +179,7 @@ set nocursorcolumn
 nnoremap <leader>c :set cursorcolumn!<CR>
 
 
-
+nnoremap <Esc><Esc> :nohlsearch<CR>
 
 
 
