@@ -19,6 +19,7 @@ set backspace=indent,eol,start
 set number
 
 set ruler
+set statusline=%<%f\ [%n]\ %h%r%{&readonly?'[RO]':''}\ %{&modified?'[+]':''}%=%{&fileencoding==''?&encoding:&fileencoding}\ %{&fileformat}\ %{&filetype==''?'none':&filetype}\ %{&expandtab?'spaces':'tabs'}:%{&shiftwidth}\ %l:%c\ %p%%
 set laststatus=2
 set showcmd
 set showmode
