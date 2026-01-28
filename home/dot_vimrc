@@ -61,6 +61,17 @@ set mouse=a
 
 
 
+if exists('&termguicolors')
+  set termguicolors
+endif
+colorscheme default
+
+
+
+
+
+
+
 
 set textwidth=0
 
@@ -178,18 +189,3 @@ nnoremap <leader>c :set cursorcolumn!<CR>
 
 
 nnoremap <Esc><Esc> :nohlsearch<CR>
-
-
-
-
-
-
-
-
-
-
-
-if exists('&termguicolors')
-  set termguicolors
-endif
-colorscheme default
