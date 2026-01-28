@@ -112,7 +112,9 @@ set wildmode=list:full
 
 
 
-set wildignorecase
+if exists('&wildignorecase')
+  set wildignorecase
+endif
 set wildignore+=*.o,*.obj,*.pyc,*.class,*.swp,*.DS_Store
 
 
