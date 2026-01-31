@@ -68,3 +68,8 @@ sandbox_mode    = "read-only"
 
 [projects]
 
+[projects."{{ .chezmoi.workingTree }}"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/workspace"]
+trust_level = "trusted"
