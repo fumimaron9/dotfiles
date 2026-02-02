@@ -185,3 +185,180 @@ nnoremap <leader>c :set cursorcolumn!<CR>
 
 
 nnoremap <Esc><Esc> :nohlsearch<CR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+" =========================
+" netrw recommended settings
+" =========================
+
+" バナー（ヘルプっぽい上部表示）を消してスッキリ
+let g:netrw_banner = 0
+
+" ツリー表示（3）: ディレクトリの階層が見やすい
+let g:netrw_liststyle = 3
+
+" netrw ウィンドウの幅（%）
+let g:netrw_winsize = 25
+
+" ファイルを開く時に勝手に分割しない（今のウィンドウを使う）
+let g:netrw_browse_split = 0
+
+" :Vexplore で開いた時に左に固定しやすくする（分割方向）
+let g:netrw_altv = 1
+
+" いろいろな “余計な” プロンプト/動作を減らす（好みで）
+let g:netrw_fastbrowse = 0
+
+" ドットファイルは最初は非表示（netrw内で '.' で切り替え可能）
+let g:netrw_hide = 1
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
+" 既存のディレクトリバッファを再利用（タブ/ウィンドウ増殖を抑える）
+let g:netrw_dirkeep = 1
+
+
+" =========================
+" keymaps (optional)
+" =========================
+
+" <Leader>e で左にファイラを開く / トグルっぽく使う
+nnoremap <silent> <Leader>e :Lexplore<CR>
+
+" カレントファイルの場所を開く（便利）
+nnoremap <silent> <Leader>E :Lexplore %:p:h<CR>
+
+
+augroup MyNetrwKeys
+  autocmd!
+  autocmd FileType netrw nnoremap <silent><buffer> Q  :close<CR>
+  autocmd FileType netrw nnoremap <silent><buffer> qq :close<CR>
+
+  " '.' で隠しファイル切替（gh を実行）
+  autocmd FileType netrw nnoremap <silent><buffer> . :normal gh<CR>
+
+  " 見た目（お好み）
+  autocmd FileType netrw setlocal nonumber norelativenumber nowrap
+
+  autocmd FileType netrw setlocal statusline=netrw
+augroup END
+
+
+
+" -----------------------------
+" Project root detection (Git優先)
+" -----------------------------
+function! s:find_project_root(start_dir) abort
+  " 1) Git ルート
+  let l:gitdir = finddir('.git', a:start_dir . ';')
+  if !empty(l:gitdir)
+    return fnamemodify(l:gitdir, ':h')
+  endif
+
+  " 2) よくあるプロジェクト指標ファイル
+  for l:marker in ['Makefile', 'package.json', 'pyproject.toml', 'go.mod', 'Cargo.toml', 'pom.xml']
+    let l:file = findfile(l:marker, a:start_dir . ';')
+    if !empty(l:file)
+      return fnamemodify(l:file, ':h')
+    endif
+  endfor
+
+  return ''
+endfunction
+
+" バッファに入ったら（通常ファイルだけ）プロジェクトルートへ :cd
+let g:project_root_auto_cd = 1
+
+function! s:auto_cd_to_project_root() abort
+  if !get(g:, 'project_root_auto_cd', 1)
+    return
+  endif
+
+  " 特殊バッファを除外
+  if &buftype !=# '' | return | endif
+  if &filetype ==# 'netrw' | return | endif
+
+  let l:path = expand('%:p')
+  if empty(l:path) | return | endif
+
+  let l:dir  = fnamemodify(l:path, ':h')
+  let l:root = s:find_project_root(l:dir)
+  if !empty(l:root) && getcwd() !=# l:root
+    execute 'cd' fnameescape(l:root)
+  endif
+endfunction
+
+augroup ProjectRootAutoCd
+  autocmd!
+  autocmd BufEnter * call s:auto_cd_to_project_root()
+augroup END
+
+" 手動でルートへ移動したい時用
+command! -bar ProjectCd call s:project_cd()
+function! s:project_cd() abort
+  let l:dir  = expand('%:p:h')
+  let l:root = s:find_project_root(l:dir)
+  if empty(l:root)
+    echo "Project root not found"
+    return
+  endif
+  execute 'cd' fnameescape(l:root)
+  echo "cd -> " . l:root
+endfunction
+
+
+" -----------------------------
+" Session management (project-based)
+" -----------------------------
+" セッション保存先
+let g:project_session_dir = expand('~/.vim/sessions')
+if !isdirectory(g:project_session_dir)
+  call mkdir(g:project_session_dir, 'p')
+endif
+
+" どこまで保存するか（好みで調整OK）
+set sessionoptions=curdir,folds,globals,help,tabpages,winsize
+
+function! s:session_path_for_cwd() abort
+  " cwd をファイル名にできる形へ
+  let l:key = substitute(getcwd(), '/', '%', 'g')
+  return g:project_session_dir . '/' . l:key . '.vim'
+endfunction
+
+function! s:project_session_save() abort
+  let l:path = s:session_path_for_cwd()
+  execute 'silent! mksession!' fnameescape(l:path)
+endfunction
+
+function! s:project_session_load() abort
+  let l:path = s:session_path_for_cwd()
+  if filereadable(l:path)
+    execute 'silent! source' fnameescape(l:path)
+    echo "Session loaded: " . l:path
+  else
+    echo "No session: " . l:path
+  endif
+endfunction
+
+command! -bar ProjectSave call s:project_session_save()
+command! -bar ProjectLoad call s:project_session_load()
+
+" Vim終了時に自動保存（不要なら 0 に）
+let g:project_session_autosave = 1
+augroup ProjectSessionAuto
+  autocmd!
+  autocmd VimLeavePre * if get(g:, 'project_session_autosave', 1) | call s:project_session_save() | endif
+augroup END
