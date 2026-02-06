@@ -55,10 +55,14 @@ augroup END
 
 set nobomb
 
-set mouse=a
 
-
-
+if has('mouse')
+  set mouse=a
+  set mousemodel=popup
+  if has('term_mouse')
+    set ttymouse=xterm2
+  endif
+endif
 
 
 if exists('&termguicolors')
@@ -190,6 +194,48 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+set showtabline=2
+set tabline=%!MyBufNumTabline()
+
+function! MyBufNumTabline() abort
+  let s = ''
+  for bn in range(1, bufnr('$'))
+    if bufexists(bn) && buflisted(bn)
+      " クリックターゲット開始（ここが重要）
+      let s .= '%' . bn . 'T'
+
+      " 強調
+      if bn == bufnr('%')
+        let s .= '%#TabLineSel#'
+      else
+        let s .= '%#TabLine#'
+      endif
+
+      " 表示（番号のみ）
+      let s .= ' ' . bn . ' '
+    endif
+  endfor
+
+  " 余白 + クリックターゲット解除
+  let s .= '%#TabLineFill#%T'
+  return s
+endfunction
+
+
+nnoremap <silent> <Tab>   :bnext<CR>
+nnoremap <silent> <S-Tab> :bprevious<CR>
+nnoremap <silent> <Leader>bd :bd<CR>
 
 
 
