@@ -17,13 +17,13 @@
 model = "gpt-6-astra"
 personality = "pragmatic"
 review_model = "gpt-6-astra"
-#service_tier = "fast"
+service_tier = "default"
 
 ################################################################################
 # Reasoning & Verbosity (Responses API capable models)
 ################################################################################
 
-model_reasoning_effort = "medium"
+model_reasoning_effort = "low"
 plan_mode_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
 model_verbosity = "low"
@@ -45,10 +45,8 @@ notify = ["{{ .chezmoi.homeDir }}/.codex/computer-use/Codex Computer Use.app/Con
 
 #approval_policy = "untrusted"
 approval_policy = "on-request"
-#sandbox_mode = "read-only"
-sandbox_mode = "workspace-write"
-#default_permissions = ":read-only"
 default_permissions = ":workspace"
+#default_permissions = "dev-safe"
 
 ################################################################################
 # Authentication & Login
@@ -111,6 +109,67 @@ NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = {{ $browserClientSha256s | quote }}
 # Sandboxed networking settings
 ################################################################################
 
+[permissions.dev-safe]
+description = "Least-privilege profile for normal software development."
+extends = ":workspace"
+
+[permissions.dev-safe.filesystem]
+"~/.ssh" = "deny"
+"~/.aws" = "deny"
+"~/.kube" = "deny"
+"~/.gnupg" = "deny"
+"~/.docker" = "deny"
+
+# GitHub CLI:
+# Use "read" if Codex should be able to run authenticated `gh` commands.
+"~/.config/gh" = "read"
+
+[permissions.dev-safe.filesystem.":workspace_roots"]
+
+# Environment / secrets
+".env" = "deny"
+".env.*" = "deny"
+"**/.env" = "deny"
+"**/.env.*" = "deny"
+
+# Private keys / certificates
+"**/*.pem" = "deny"
+"**/*.key" = "deny"
+"**/*.p12" = "deny"
+"**/*.pfx" = "deny"
+
+[permissions.dev-safe.network]
+enabled = true
+
+[permissions.dev-safe.network.domains]
+
+# GitHub
+"github.com" = "allow"
+"*.github.com" = "allow"
+"**.githubusercontent.com" = "allow"
+
+# npm / Node
+"registry.npmjs.org" = "allow"
+"**.npmjs.com" = "allow"
+"**.nodejs.org" = "allow"
+
+# Terraform
+"registry.terraform.io" = "allow"
+"releases.hashicorp.com" = "allow"
+
+# OpenAI
+"api.openai.com" = "allow"
+"developers.openai.com" = "allow"
+
+
+[permissions.dev-infra]
+description = "Infrastructure development with AWS and Kubernetes access."
+extends = "dev-safe"
+
+[permissions.dev-infra.filesystem]
+"~/.aws" = "read"
+"~/.kube" = "read"
+
 ################################################################################
 # History (table)
 ################################################################################
@@ -141,6 +200,10 @@ multi_agent = true
 js_repl = false
 memories = false
 chronicle = false
+network_proxy = true
+
+[features.context_management]
+experimental_mode = true
 
 ################################################################################
 # Memories (table)
@@ -333,6 +396,7 @@ ambient-suggestions-enabled = false
 followUpQueueMode = "queue"
 dock-icon-preference = "app-default"
 conversationDetailMode = "STEPS_PROSE"
+open-link-in-target-preference = "external-browser"
 
 [desktop.open-in-target-preferences]
 global = "ghostty"
