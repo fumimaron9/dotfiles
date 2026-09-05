@@ -264,8 +264,8 @@ sandbox = "unelevated"
 {{ $openaiBundledMarketplace | toToml | trim -}}
 {{ else -}}
 [marketplaces.openai-bundled]
-source_type = "local"
 source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled"
+source_type = "local"
 {{- end }}
 
 {{ if $openaiPrimaryRuntimeMarketplace -}}
@@ -274,8 +274,8 @@ source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled
 {{ else -}}
 [marketplaces.openai-primary-runtime]
 last_updated = "2026-08-06T04:10:08Z"
-source_type = "local"
 source = "{{ .chezmoi.homeDir }}/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+source_type = "local"
 {{- end }}
 
 {{ if $plugins -}}
@@ -318,10 +318,10 @@ enabled = true
 [plugins."sites@openai-bundled"]
 enabled = true
 
-[plugins."visualize@openai-bundled"]
+[plugins."browser@openai-bundled"]
 enabled = true
 
-[plugins."browser@openai-bundled"]
+[plugins."visualize@openai-bundled"]
 enabled = true
 
 [plugins."codex-app-tools@openai-bundled"]
