@@ -119,20 +119,14 @@ extends = ":workspace"
 "~/.kube" = "deny"
 "~/.gnupg" = "deny"
 "~/.docker" = "deny"
-
-# GitHub CLI:
-# Use "read" if Codex should be able to run authenticated `gh` commands.
 "~/.config/gh" = "read"
 
 [permissions.dev-safe.filesystem.":workspace_roots"]
-
-# Environment / secrets
 ".env" = "deny"
 ".env.*" = "deny"
 "**/.env" = "deny"
 "**/.env.*" = "deny"
 
-# Private keys / certificates
 "**/*.pem" = "deny"
 "**/*.key" = "deny"
 "**/*.p12" = "deny"
@@ -142,25 +136,19 @@ extends = ":workspace"
 enabled = true
 
 [permissions.dev-safe.network.domains]
-
-# GitHub
 "github.com" = "allow"
 "*.github.com" = "allow"
 "**.githubusercontent.com" = "allow"
 
-# npm / Node
 "registry.npmjs.org" = "allow"
 "**.npmjs.com" = "allow"
 "**.nodejs.org" = "allow"
 
-# Terraform
 "registry.terraform.io" = "allow"
 "releases.hashicorp.com" = "allow"
 
-# OpenAI
 "api.openai.com" = "allow"
 "developers.openai.com" = "allow"
-
 
 [permissions.dev-infra]
 description = "Infrastructure development with AWS and Kubernetes access."
