@@ -14,9 +14,9 @@
 # Core Model Selection
 ################################################################################
 
-model = "gpt-5.6-sol"
+model = "gpt-6-astra"
 personality = "pragmatic"
-review_model = "gpt-5.6-sol"
+review_model = "gpt-6-astra"
 #service_tier = "fast"
 
 ################################################################################
