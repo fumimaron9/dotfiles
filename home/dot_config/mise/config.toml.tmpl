@@ -62,4 +62,17 @@ k6 = "latest"
 
 "aqua:prometheus/prometheus" = "latest"
 "aqua:cocogitto/cocogitto" = "latest"
+{{ if ne .chezmoi.os "windows" -}}
 "aqua:aws/session-manager-plugin" = "latest"
+{{ end -}}
+
+jq = "latest"
+yq = "latest"
+fzf = "latest"
+lazygit = "latest"
+lefthook = "latest"
+ripgrep = "latest"
+gitleaks = "latest"
+betterleaks = "latest"
+lsd = "latest"
+bat = "latest"
