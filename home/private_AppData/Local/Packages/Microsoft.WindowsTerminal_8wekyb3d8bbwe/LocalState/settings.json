@@ -99,15 +99,15 @@
                 "source": "Git"
             },
             {
+                "guid": "{adf8742f-da67-556a-893e-f5db50866815}",
                 "colorScheme": "Nord Theme",
                 "font":
                 {
                     "face": "JetBrainsMono Nerd Font Mono",
                     "size": 11
                 },
-                "guid": "{e7828ea9-af8c-5628-8d1d-3927b2ddb96a}",
                 "hidden": false,
-                "name": "Ubuntu",
+                "name": "Ubuntu-26.04",
                 "source": "Microsoft.WSL"
             }
         ]
