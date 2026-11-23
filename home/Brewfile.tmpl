@@ -1,5 +1,4 @@
 tap "aws/tap"
-tap "argoproj/tap"
 tap "teamookla/speedtest"
 tap "microsoft/msstore-cli"
 
@@ -51,12 +50,6 @@ brew "mise"
 brew "awscli"
 brew "podman"
 brew "postgresql@17"
-brew "helm"
-brew "eksctl"
-brew "argo"
-brew "argocd"
-brew "argoproj/tap/kubectl-argo-rollouts"
-brew "istioctl"
 brew "watchman"
 brew "mkcert"
 brew "cue"
@@ -116,6 +109,8 @@ cask "claude-code@latest"
 cask "grok-build"
 cask "devtoys"
 cask "malwarebytes"
+cask "pingplotter"
+cask "windows-app"
 
 {{ if eq .chezmoi.os "darwin" -}}
 #mas "Feedly", id: 865500966
